@@ -1,0 +1,193 @@
+{
+    "fields": [
+        {
+            "type": "uint8",
+            "name": "unsigned_integer_8",
+            "required": true,
+            "max": 255,
+            "min": 0
+        },
+        {
+            "type": "uint16",
+            "name": "unsigned_integer_16",
+            "required": true,
+            "max": 65535,
+            "min": 0
+        },
+        {
+            "type": "uint32",
+            "name": "unsigned_integer_32",
+            "required": true,
+            "max": 4294967295,
+            "min": 0
+        },
+        {
+            "type": "int8",
+            "name": "signed_integer_8",
+            "required": true,
+            "max": 127,
+            "min": -128
+        },
+        {
+            "type": "int16",
+            "name": "signed_integer_16",
+            "required": true,
+            "max": 32767,
+            "min": -32768
+        },
+        {
+            "type": "int32",
+            "name": "signed_integer_32",
+            "required": true,
+            "max": 2147483647,
+            "min": -2147483648
+        },
+        {
+            "type": "float",
+            "name": "float",
+            "required": true,
+            "max": 999999,
+            "min": -999999
+        },
+        {
+            "type": "boolean",
+            "name": "boolean",
+            "required": true,
+            "max": 1,
+            "min": 0
+        },
+        {
+            "type": "string_name",
+            "name": "name",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_email",
+            "name": "email",
+            "required": true,
+            "max": 255,
+            "min": 5
+        },
+        {
+            "type": "string_username",
+            "name": "username",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_country",
+            "name": "country",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_word",
+            "name": "word",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_sentence",
+            "name": "sentence",
+            "required": true,
+            "max": 2048,
+            "min": 1
+        },
+        {
+            "type": "string_url",
+            "name": "url",
+            "required": true,
+            "max": 255,
+            "min": 10
+        },
+        {
+            "type": "string_uuid",
+            "name": "uuid",
+            "required": true,
+            "max": 36,
+            "min": 36
+        },
+        {
+            "type": "string_hex_color",
+            "name": "hex_color",
+            "required": true,
+            "max": 7,
+            "min": 7
+        },
+        {
+            "type": "string_phone",
+            "name": "phone",
+            "required": true,
+            "max": 20,
+            "min": 1
+        },
+        {
+            "type": "string_credit_card",
+            "name": "credit_card",
+            "required": true,
+            "max": 19,
+            "min": 19
+        },
+        {
+            "type": "string_currency",
+            "name": "currency",
+            "required": true,
+            "max": 20,
+            "min": 1
+        },
+        {
+            "type": "string_bitcoin_address",
+            "name": "bitcoin_address",
+            "required": true,
+            "max": 62,
+            "min": 34
+        },
+        {
+            "type": "string_emoji",
+            "name": "emoji",
+            "required": true,
+            "max": 4,
+            "min": 1
+        },
+        {
+            "type": "string_ipv4",
+            "name": "ipv4",
+            "required": true,
+            "max": 15,
+            "min": 7
+        },
+        {
+            "type": "string_ipv6",
+            "name": "ipv6",
+            "required": true,
+            "max": 39,
+            "min": 15
+        },
+        {
+            "type": "string_date",
+            "name": "date",
+            "required": true,
+            "max": 10,
+            "min": 10
+        }, 
+        {
+            "type": "string_date_time",
+            "name": "date_time",
+            "required": true,
+            "max": 19,
+            "min": 19
+        },
+        {
+            "type": "string_time",
+            "name": "time",
+            "required": true,
+            "max": 8,
+            "min": 8
+        }
+    ]
+}

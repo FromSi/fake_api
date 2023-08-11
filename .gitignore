@@ -1,0 +1,14 @@
+*.exe
+*.dll
+*.exe~
+*.dll~
+*.exe.*
+*.dll.*
+*.pdb
+*.bak
+*.swp
+*_test
+*.so
+/vendor/
+/.vscode/
+.vscode/
