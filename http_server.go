@@ -34,82 +34,10 @@ func getFieldsFromAuthorization(r *http.Request) ([]Field, interface{}) {
 	if len(tokenParts) != 2 || strings.ToLower(tokenParts[0]) != "bearer" {
 		return []Field{}, "Invalid token format"
 	}
-
-	jwtToken, err := jwt.Parse(tokenParts[1], func(token *jwt.Token) (interface{}, error) {
-		return []byte("secret"), nil
-	})
+	
+	fields, err := jwtDecodeFields(tokenParts[1])
 
 	if err != nil {
-		return []Field{}, err.Error()
-	}
-
-	if !jwtToken.Valid {
-		return []Field{}, "Invalid token"
-	}
-
-	claims, ok := jwtToken.Claims.(jwt.MapClaims)
-
-	if !ok {
-		return []Field{}, "Invalid token claims"
-	}
-
-	fieldsClaim, exists := claims["fields"]
-
-	if !exists {
-		return []Field{}, "Token doesn't contain fields"
-	}
-
-	fieldsClaimArray, ok := fieldsClaim.([]interface{})
-
-	if !ok {
-		return []Field{}, "Invalid token fields"
-	}
-
-	var fields []Field
-
-	for _, fieldData := range fieldsClaimArray {
-		fieldMap, ok := fieldData.(map[string]interface{})
-
-		if !ok {
-			return []Field{}, "Invalid token field"
-		}
-
-		var field Field
-
-		if f, ok := fieldMap["type"].(string); ok {
-			field.Type = f
-		} else {
-			field.Type = ""
-		}
-
-		if f, ok := fieldMap["name"].(string); ok {
-			field.Name = f
-		} else {
-			field.Name = ""
-		}
-
-		if f, ok := fieldMap["required"].(bool); ok {
-			field.Required = f
-		} else {
-			field.Required = false
-		}
-
-		if f, ok := fieldMap["max"].(float64); ok {
-			field.Max = int(f)
-		} else {
-			field.Max = 0
-		}
-
-		if f, ok := fieldMap["min"].(float64); ok {
-			field.Min = int(f)
-		} else {
-			field.Min = 0
-		}
-
-		fields = append(fields, field)
-	}
-
-	if err := verifyFields(fields); err != nil {
 		return []Field{}, err
 	}
 
@@ -215,33 +143,27 @@ func routeLogin(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var request RouteLoginRequest
+	var fields []Field
 
-	if err := decodeRequest(w, r, &request); err != nil {
-		encodeResponse(w, r, RouteError{ Message: err.Error() })
-
+	if err := decodeRequest(w, r, &fields); err != nil {
 		return
 	}
 
-	if len(request.Fields) == 0 {
+	if len(fields) == 0 {
 		w.WriteHeader(http.StatusBadRequest)	
 		encodeResponse(w, r, RouteError{ Message: "Fields are required" })
 
 		return
 	}
 
-	if err := verifyFields(request.Fields); err != nil {
+	if err := verifyFields(fields); err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		encodeResponse(w, r, RouteError{ Message: err })
 
 		return
 	}
 
-	jwt := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"fields": request.Fields,
-	})
-
-	token, err := jwt.SignedString([]byte("secret"))
+	token, err := jwtEncode(jwt.MapClaims{ "fields": fields })
 
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
@@ -264,7 +186,7 @@ func routeShow(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	_, err := getFieldsFromAuthorization(r)
+	fields, err := getFieldsFromAuthorization(r)
 
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
@@ -273,7 +195,37 @@ func routeShow(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// TODO: write code here
+	for _, field := range fields {
+		result := map[string]interface{}{}
+
+		// TODO: rewrite code
+		// Свитч просто набосок, нужно сделать рандом исходя от типа и возможно перенести в отдельную функцию
+
+		switch field.Type {
+			case "uint8":
+				result[field.Name] = uint8(0)
+			case "uint16":
+				result[field.Name] = uint16(0)
+			case "uint32":
+				result[field.Name] = uint32(0)
+			case "int8":
+				result[field.Name] = int8(0)
+			case "int16":
+				result[field.Name] = int16(0)
+			case "int32":
+				result[field.Name] = int32(0)
+			case "float32":
+				result[field.Name] = float32(0)
+			case "float64":
+				result[field.Name] = float64(0)
+			case "string":
+				result[field.Name] = ""
+			case "bool":
+				result[field.Name] = false
+			default:
+				result[field.Name] = nil
+		}
+	}
 
 	if err := afterRoute(w, r, RouteError{ Message: "Not implemented" }, http.StatusOK); err != nil {
 		return
@@ -285,7 +237,7 @@ func routeList(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	_, err := getFieldsFromAuthorization(r)
+	fields, err := getFieldsFromAuthorization(r)
 
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
@@ -294,7 +246,9 @@ func routeList(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// TODO: write code here
+	for _, field := range fields {
+		println(field.Name) // TODO: rewrite code
+	}
 
 	if err := afterRoute(w, r, RouteError{ Message: "Not implemented" }, http.StatusOK); err != nil {
 		return
@@ -306,7 +260,7 @@ func routeCreate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	_, err := getFieldsFromAuthorization(r)
+	fields, err := getFieldsFromAuthorization(r)
 
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
@@ -315,7 +269,19 @@ func routeCreate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// TODO: write code here
+	var request map[string]interface{}
+
+	if err := decodeRequest(w, r, &request); err != nil {
+		return
+	}
+
+	for k, v := range request {
+		println(k, v) // TODO: rewrite code
+	}
+
+	for _, field := range fields {
+		println(field.Name) // TODO: rewrite code
+	}
 
 	if err := afterRoute(w, r, RouteError{ Message: "Not implemented" }, http.StatusAccepted); err != nil {
 		return
@@ -327,7 +293,7 @@ func routePut(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	_, err := getFieldsFromAuthorization(r)
+	fields, err := getFieldsFromAuthorization(r)
 
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
@@ -336,7 +302,19 @@ func routePut(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// TODO: write code here
+	var request map[string]interface{}
+
+	if err := decodeRequest(w, r, &request); err != nil {
+		return
+	}
+
+	for k, v := range request {
+		println(k, v) // TODO: rewrite code
+	}
+
+	for _, field := range fields {
+		println(field.Name) // TODO: rewrite code
+	}
 
 	if err := afterRoute(w, r, RouteError{ Message: "Not implemented" }, http.StatusAccepted); err != nil {
 		return
@@ -348,7 +326,7 @@ func routePatch(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	_, err := getFieldsFromAuthorization(r)
+	fields, err := getFieldsFromAuthorization(r)
 
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
@@ -357,7 +335,19 @@ func routePatch(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// TODO: write code here
+	var request map[string]interface{}
+
+	if err := decodeRequest(w, r, &request); err != nil {
+		return
+	}
+
+	for k, v := range request {
+		println(k, v) // TODO: rewrite code
+	}
+
+	for _, field := range fields {
+		println(field.Name) // TODO: rewrite code
+	}
 
 	if err := afterRoute(w, r, RouteError{ Message: "Not implemented" }, http.StatusAccepted); err != nil {
 		return
@@ -369,13 +359,17 @@ func routeDelete(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	_, err := getFieldsFromAuthorization(r)
+	fields, err := getFieldsFromAuthorization(r)
 
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		encodeResponse(w, r, RouteError{ Message: err })
 
 		return
+	}
+
+	for _, field := range fields {
+		println(field.Name) // TODO: rewrite code
 	}
 
 	if err := afterRoute(w, r, nil, http.StatusNoContent); err != nil {
