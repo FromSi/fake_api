@@ -2,36 +2,46 @@ package main
 
 import (
 	"strconv"
+	"math"
+	"math/rand"
+	"time"
+	"github.com/brianvoe/gofakeit/v6"
 )
 
 type Field struct {
-	Type string `json:"type" xml:"type,attr"`
-	Name string `json:"name" xml:"name,attr"`
-	Required bool `json:"required" xml:"required,attr"`
-	Max int `json:"max" xml:"max,attr"`
-	Min int `json:"min" xml:"min,attr"`
+	Type string `json:"type" xml:"type"`
+	Name string `json:"name" xml:"name"`
+	Required bool `json:"required" xml:"required"`
+	Max int `json:"max" xml:"max"`
+	Min int `json:"min" xml:"min"`
 }
 
-func verifyFields(fields []Field) map[string][]string {
-	errs := map[string][]string{}
+type ErrorVerifyFields struct {
+	Index string `json:"index" xml:"index,attr"`
+	Errors []string `json:"errors" xml:"errors>error"`
+}
+
+func verifyFields(fields []Field) []ErrorVerifyFields {
+	errs := []ErrorVerifyFields{}
 
 	for i, f := range fields {
-		err := []string{}
+		err := ErrorVerifyFields{}
 
 		if f.Type == "" {
-			err = append(err, "Field has empty type")
+			err.Errors = append(err.Errors, "Field has empty type")
 		}
 
 		if f.Name == "" {
-			err = append(err, "Field has empty name")
+			err.Errors = append(err.Errors, "Field has empty name")
 		}
 
 		if f.GetCorrectMin() > f.GetCorrectMax() {
-			err = append(err, "Field has incorrect min and max values")
+			err.Errors = append(err.Errors, "Field has incorrect min and max values")
 		}
 
-		if len(err) > 0 {
-			errs[strconv.Itoa(i)] = err
+		if len(err.Errors) > 0 {
+			err.Index = strconv.Itoa(i)
+			errs = append(errs, err)
 		}
 	}
 
@@ -40,6 +50,69 @@ func verifyFields(fields []Field) map[string][]string {
 	}
 
 	return nil
+}
+
+func (f *Field) GetRandomValue() interface{} {
+	rand.New(rand.NewSource(time.Now().UnixNano()))
+
+	switch f.Type {
+		case "uint8":
+			return rand.Intn(f.GetCorrectMax() - f.GetCorrectMin() + 1) + f.GetCorrectMin()
+		case "uint16":
+			return rand.Intn(f.GetCorrectMax() - f.GetCorrectMin() + 1) + f.GetCorrectMin()
+		case "uint32":
+			return rand.Intn(f.GetCorrectMax() - f.GetCorrectMin() + 1) + f.GetCorrectMin()
+		case "int8":
+			return rand.Intn(f.GetCorrectMax() - f.GetCorrectMin() + 1) + f.GetCorrectMin()
+		case "int16":
+			return rand.Intn(f.GetCorrectMax() - f.GetCorrectMin() + 1) + f.GetCorrectMin()
+		case "int32":
+			return rand.Intn(f.GetCorrectMax() - f.GetCorrectMin() + 1) + f.GetCorrectMin()
+		case "float":
+			return rand.Float32() * float32(f.GetCorrectMax() - f.GetCorrectMin()) + float32(f.GetCorrectMin())
+		case "boolean":
+			return gofakeit.Bool()
+		case "string_name":
+			return gofakeit.Name()
+		case "string_email":
+			return gofakeit.Email()
+		case "string_username":
+			return gofakeit.Username()
+		case "string_country":
+			return gofakeit.Country()
+		case "string_word":
+			return gofakeit.Word()
+		case "string_sentence":
+			return gofakeit.Sentence(f.GetCorrectMax())
+		case "string_url":
+			return gofakeit.URL()
+		case "string_uuid":
+			return gofakeit.UUID()
+		case "string_hex_color":
+			return gofakeit.HexColor()
+		case "string_phone":
+			return gofakeit.Phone()
+		case "string_credit_card":
+			return gofakeit.CreditCard()
+		case "string_currency":
+			return gofakeit.CurrencyShort()
+		case "string_bitcoin_address":
+			return gofakeit.BitcoinAddress()
+		case "string_emoji":
+			return gofakeit.Emoji()
+		case "string_ipv4":
+			return gofakeit.IPv4Address()
+		case "string_ipv6":
+			return gofakeit.IPv6Address()
+		case "string_date":
+			return gofakeit.Date().Format("2006-01-02")
+		case "string_date_time":
+			return gofakeit.FutureDate().Format("2006-01-02 15:04:05")
+		case "string_time":
+			return gofakeit.FutureDate().Format("15:04:05")
+		default:
+			return nil
+	}
 }
 
 func (f *Field) GetCorrectMin() int {
@@ -55,11 +128,11 @@ func getCorrectMinByType(fieldType string, value int) int {
 		case "uint32":
 			return max(0, value)
 		case "int8":
-			return max(-128, value)
+			return max(math.MinInt8, value)
 		case "int16":
-			return max(-32768, value)
+			return max(math.MinInt16, value)
 		case "int32":
-			return max(-2147483648, value)
+			return max(math.MinInt32, value)
 		case "float":
 			return max(-999999, value)
 		case "boolean":
@@ -114,17 +187,17 @@ func (f *Field) GetCorrectMax() int {
 func getCorrectMaxByType(fieldType string, value int) int {
 	switch fieldType {
 		case "uint8":
-			return min(255, value)
+			return min(math.MaxUint8, value)
 		case "uint16":
-			return min(65535, value)
+			return min(math.MaxUint16, value)
 		case "uint32":
-			return min(4294967295, value)
+			return min(math.MaxUint32, value)
 		case "int8":
-			return min(127, value)
+			return min(math.MaxInt8, value)
 		case "int16":
-			return min(32767, value)
+			return min(math.MaxInt16, value)
 		case "int32":
-			return min(2147483647, value)
+			return min(math.MaxInt32, value)
 		case "float":
 			return min(999999, value)
 		case "boolean":

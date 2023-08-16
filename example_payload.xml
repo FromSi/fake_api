@@ -1,4 +1,4 @@
-<HttpRouteLoginRequest>
+<RouteLoginRequest>
     <fields>
         <field>
             <type>uint8</type>
@@ -190,4 +190,4 @@
             <min>8</min>
         </field>
     </fields>
-</HttpRouteLoginRequest>
+</RouteLoginRequest>
