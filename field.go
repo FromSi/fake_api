@@ -6,6 +6,7 @@ import (
 	"math/rand"
 	"time"
 	"github.com/brianvoe/gofakeit/v6"
+	"regexp"
 )
 
 type Field struct {
@@ -16,16 +17,13 @@ type Field struct {
 	Min int `json:"min" xml:"min"`
 }
 
-type ErrorVerifyFields struct {
-	Index string `json:"index" xml:"index,attr"`
-	Errors []string `json:"errors" xml:"errors>error"`
-}
+func validateFields(fields []Field) []RouteErrorList {
+	errs := []RouteErrorList{}
 
-func verifyFields(fields []Field) []ErrorVerifyFields {
-	errs := []ErrorVerifyFields{}
+	fieldNames := map[string]bool{}
 
 	for i, f := range fields {
-		err := ErrorVerifyFields{}
+		err := RouteErrorList{}
 
 		if f.Type == "" {
 			err.Errors = append(err.Errors, "Field has empty type")
@@ -33,6 +31,12 @@ func verifyFields(fields []Field) []ErrorVerifyFields {
 
 		if f.Name == "" {
 			err.Errors = append(err.Errors, "Field has empty name")
+		} else if matched, _ := regexp.MatchString("^[a-z_0-9]+$", f.Name); matched == false {
+			err.Errors = append(err.Errors, "Field has incorrect format (only lowercase letters, underscores are allowed and numbers)")
+		} else if _, ok := fieldNames[f.Name]; ok {
+			err.Errors = append(err.Errors, "Field has duplicate name")
+		} else {
+			fieldNames[f.Name] = true
 		}
 
 		if f.GetCorrectMin() > f.GetCorrectMax() {
@@ -242,5 +246,70 @@ func getCorrectMaxByType(fieldType string, value int) int {
 			return min(8, value)
 		default:
 			return min(0, value)
+	}
+}
+
+func (f *Field) GetType() string {
+	return getTypeByType(f.Type)
+}
+
+func getTypeByType(fieldType string) string {
+	switch fieldType {
+		case "uint8":
+			return "float64"
+		case "uint16":
+			return "float64"
+		case "uint32":
+			return "float64"
+		case "int8":
+			return "float64"
+		case "int16":
+			return "float64"
+		case "int32":
+			return "float64"
+		case "float":
+			return "float64"
+		case "boolean":
+			return "bool"
+		case "string_name":
+			return "string"
+		case "string_email":
+			return "string"
+		case "string_username":
+			return "string"
+		case "string_country":
+			return "string"
+		case "string_word":
+			return "string"
+		case "string_sentence":
+			return "string"
+		case "string_url":
+			return "string"
+		case "string_uuid":
+			return "string"
+		case "string_hex_color":
+			return "string"
+		case "string_phone":
+			return "string"
+		case "string_credit_card":
+			return "string"
+		case "string_currency":
+			return "string"
+		case "string_bitcoin_address":
+			return "string"
+		case "string_emoji":
+			return "string"
+		case "string_ipv4":
+			return "string"
+		case "string_ipv6":
+			return "string"
+		case "string_date":
+			return "string"
+		case "string_date_time":
+			return "string"
+		case "string_time":
+			return "string"
+		default:
+			return "error"
 	}
 }

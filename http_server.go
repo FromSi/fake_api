@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"net/http"
 	"strings"
+	"reflect"
 )
 
 func getFieldsFromAuthorization(r *http.Request) ([]Field, interface{}) {
@@ -123,6 +124,66 @@ func decodeRequest(w http.ResponseWriter, r *http.Request, request interface{}) 
 	}
 
 	return nil
+}
+
+func validateFieldsFromRequest(w http.ResponseWriter, r *http.Request, request map[string]interface{}, fields []Field, isRequired bool) (interface{}, int) {
+	errs := []RouteErrorList{}
+
+	for _, field := range fields {
+		isFound := false
+		
+		for k, v := range request {
+			if k != field.Name {
+				continue
+			}
+
+			isFound = true
+			err := RouteErrorList{}
+			err.Index = k
+	
+			if field.Name == "" {
+				err.Errors = append(err.Errors, "Field not found")
+			} else if field.Required == true && v == nil {
+				err.Errors = append(err.Errors, "Field is required")
+			} else if field.GetType() != reflect.TypeOf(v).String() {
+				err.Errors = append(err.Errors, "Field has incorrect type")
+			} else if field.GetType() == "string" {
+				if field.GetCorrectMin() > len(v.(string)) {
+					err.Errors = append(err.Errors, "Field has incorrect min length")
+				}
+	
+				if field.GetType() == "string" && field.GetCorrectMax() < len(v.(string)) {
+					err.Errors = append(err.Errors, "Field has incorrect max length")
+				}
+			} else if field.GetType() == "float64" {
+				if field.GetCorrectMin() > int(v.(float64)) {
+					err.Errors = append(err.Errors, "Field has incorrect min value")
+				}
+	
+				if field.GetCorrectMax() < int(v.(float64)) {
+					err.Errors = append(err.Errors, "Field has incorrect max value")
+				}
+			}
+	
+			if len(err.Errors) > 0 {
+				errs = append(errs, err)
+			}
+		}
+
+		if isFound == false && field.Required == true && isRequired == true {
+			err := RouteErrorList{}
+			err.Index = field.Name
+			err.Errors = append(err.Errors, "Field not found")
+
+			errs = append(errs, err)
+		}
+	}
+
+	if len(errs) > 0 {
+		return errs, http.StatusAccepted
+	} else {
+		return RouteSuccess{ Data: "Success: todo rewrite!!!"}, http.StatusCreated
+	}
 }
 
 func runHttpServer() {

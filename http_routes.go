@@ -23,6 +23,11 @@ type RouteSuccess struct {
 	Data interface{} `json:"data" xml:"data"`
 }
 
+type RouteErrorList struct {
+	Index string `json:"index" xml:"index,attr"`
+	Errors []string `json:"errors" xml:"errors>error"`
+}
+
 func routeLogin(w http.ResponseWriter, r *http.Request) {
 	if err := beforeRoute(w, r, http.MethodPost); err != nil {
 		return
@@ -41,7 +46,7 @@ func routeLogin(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	
-	if err := verifyFields(reuqest.Fields); err != nil {
+	if err := validateFields(reuqest.Fields); err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		encodeResponse(w, r, RouteError{ Message: err })
 
@@ -144,15 +149,9 @@ func routeCreate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	for k, v := range request {
-		println(k, v) // TODO: rewrite code
-	}
+	validate, statusCode := validateFieldsFromRequest(w, r, request, fields, true)
 
-	for _, field := range fields {
-		println(field.Name) // TODO: rewrite code
-	}
-
-	if err := afterRoute(w, r, RouteError{ Message: "Not implemented" }, http.StatusAccepted); err != nil {
+	if err := afterRoute(w, r, validate, statusCode); err != nil {
 		return
 	}
 }
@@ -177,15 +176,9 @@ func routePut(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	for k, v := range request {
-		println(k, v) // TODO: rewrite code
-	}
+	validate, statusCode := validateFieldsFromRequest(w, r, request, fields, true)
 
-	for _, field := range fields {
-		println(field.Name) // TODO: rewrite code
-	}
-
-	if err := afterRoute(w, r, RouteError{ Message: "Not implemented" }, http.StatusAccepted); err != nil {
+	if err := afterRoute(w, r, validate, statusCode); err != nil {
 		return
 	}
 }
@@ -210,15 +203,9 @@ func routePatch(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	for k, v := range request {
-		println(k, v) // TODO: rewrite code
-	}
+	validate, statusCode := validateFieldsFromRequest(w, r, request, fields, false)
 
-	for _, field := range fields {
-		println(field.Name) // TODO: rewrite code
-	}
-
-	if err := afterRoute(w, r, RouteError{ Message: "Not implemented" }, http.StatusAccepted); err != nil {
+	if err := afterRoute(w, r, validate, statusCode); err != nil {
 		return
 	}
 }
@@ -228,17 +215,13 @@ func routeDelete(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fields, err := getFieldsFromAuthorization(r)
+	_, err := getFieldsFromAuthorization(r)
 
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		encodeResponse(w, r, RouteError{ Message: err })
 
 		return
-	}
-
-	for _, field := range fields {
-		println(field.Name) // TODO: rewrite code
 	}
 
 	if err := afterRoute(w, r, nil, http.StatusNoContent); err != nil {

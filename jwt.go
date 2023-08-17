@@ -96,7 +96,7 @@ func jwtDecodeFields(token string) ([]Field, interface{}) {
 		fields = append(fields, field)
 	}
 
-	if err := verifyFields(fields); err != nil {
+	if err := validateFields(fields); err != nil {
 		return []Field{}, err
 	}
 
