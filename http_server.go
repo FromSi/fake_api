@@ -10,6 +10,7 @@ import (
 	"reflect"
 )
 
+// Получение полей из request header Authorization и декодирование JWT.
 func getFieldsFromAuthorization(r *http.Request) ([]Field, interface{}) {
 	token := r.Header.Get("Authorization")
 
@@ -32,6 +33,7 @@ func getFieldsFromAuthorization(r *http.Request) ([]Field, interface{}) {
 	return fields, nil
 }
 
+// Вспомогательная функция для обработки первоначальных данных роутов, с проверкой метода запроса.
 func beforeRoute(w http.ResponseWriter, r *http.Request, method string) error {
 	contentType(w, r)
 
@@ -44,9 +46,19 @@ func beforeRoute(w http.ResponseWriter, r *http.Request, method string) error {
 		return errors.New(message)
 	}
 
+	if r.Method == http.MethodPost || r.Method == http.MethodPut || r.Method == http.MethodPatch {
+		if r.ContentLength == 0 {
+			w.WriteHeader(http.StatusBadRequest)
+			encodeResponse(w, r, RouteError{ Message: "Request body is empty" })
+
+			return errors.New("Request body is empty")
+		}
+	}
+
 	return nil
 }
 
+// Вспомогательная функция для обработки завершенности роутов, с кодированием ответа.
 func afterRoute(w http.ResponseWriter, r *http.Request, response interface{}, statusCode int) error {
 	w.WriteHeader(statusCode)
 
@@ -63,6 +75,7 @@ func afterRoute(w http.ResponseWriter, r *http.Request, response interface{}, st
 	return nil
 }
 
+// Настройка Content-Type для response и получение его из запроса.
 func contentType(w http.ResponseWriter, r *http.Request) string {
 	contentType := r.Header.Get("Content-Type")
 
@@ -80,6 +93,7 @@ func contentType(w http.ResponseWriter, r *http.Request) string {
 	return contentType
 }
 
+// Кодирование response в зависимости от Content-Type. По умолчанию используется application/json.
 func encodeResponse(w http.ResponseWriter, r *http.Request, response interface{}) error {
 	contentType := contentType(w, r)
 
@@ -103,6 +117,7 @@ func encodeResponse(w http.ResponseWriter, r *http.Request, response interface{}
 	return nil
 }
 
+// Декодирование request в зависимости от Content-Type. По умолчанию используется application/json.
 func decodeRequest(w http.ResponseWriter, r *http.Request, request interface{}) error {
 	contentType := contentType(w, r)
 
@@ -121,12 +136,19 @@ func decodeRequest(w http.ResponseWriter, r *http.Request, request interface{}) 
 		
 				return errors.New(err.Error())
 			}
+		default:
+			w.WriteHeader(http.StatusBadRequest)
+			json.NewEncoder(w).Encode(RouteError{ Message: "Invalid Content-Type" })
+	
+			return errors.New("Invalid Content-Type")
 	}
 
 	return nil
 }
 
-func validateFieldsFromRequest(w http.ResponseWriter, r *http.Request, request map[string]interface{}, fields []Field, isRequired bool) (interface{}, int) {
+// Валидация полей из request body. 
+// Проверяется наличие полей, их типы, минимальные и максимальные значения.
+func validateFieldsFromRequest(w http.ResponseWriter, r *http.Request, request map[string]interface{}, fields []Field, isRequired bool, statusCode int) (interface{}, int) {
 	errs := []RouteErrorList{}
 
 	for _, field := range fields {
@@ -180,12 +202,13 @@ func validateFieldsFromRequest(w http.ResponseWriter, r *http.Request, request m
 	}
 
 	if len(errs) > 0 {
-		return errs, http.StatusAccepted
+		return errs, statusCode
 	} else {
 		return RouteSuccess{ Data: "Success: todo rewrite!!!"}, http.StatusCreated
 	}
 }
 
+// Регистрация роутов и запуск сервера.
 func runHttpServer() {
 	http.HandleFunc("/login", routeLogin)
 	http.HandleFunc("/show", routeShow)

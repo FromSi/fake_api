@@ -9,6 +9,7 @@ import (
 	"regexp"
 )
 
+// Поля для мок ресурса.
 type Field struct {
 	Type string `json:"type" xml:"type"`
 	Name string `json:"name" xml:"name"`
@@ -17,6 +18,7 @@ type Field struct {
 	Min int `json:"min" xml:"min"`
 }
 
+// Валидировать для Field структуры.
 func validateFields(fields []Field) []RouteErrorList {
 	errs := []RouteErrorList{}
 
@@ -56,6 +58,7 @@ func validateFields(fields []Field) []RouteErrorList {
 	return nil
 }
 
+// Плучить случайное значение для поля.
 func (f *Field) GetRandomValue() interface{} {
 	rand.New(rand.NewSource(time.Now().UnixNano()))
 
@@ -119,10 +122,13 @@ func (f *Field) GetRandomValue() interface{} {
 	}
 }
 
+// Получить корректное, минимальное значение для поля.
 func (f *Field) GetCorrectMin() int {
 	return getCorrectMinByType(f.Type, f.Min)
 }
 
+// Получить корректное, минимальное значение для поля по типу. 
+// value - значение, которое должно быть корректным.
 func getCorrectMinByType(fieldType string, value int) int {
 	switch fieldType {
 		case "uint8":
@@ -184,10 +190,13 @@ func getCorrectMinByType(fieldType string, value int) int {
 	}
 }
 
+// Получить корректное, максимальное значение для поля.
 func (f *Field) GetCorrectMax() int {
 	return getCorrectMaxByType(f.Type, f.Max)
 }
 
+// Получить корректное, максимальное значение для поля по типу. 
+// value - значение, которое должно быть корректным.
 func getCorrectMaxByType(fieldType string, value int) int {
 	switch fieldType {
 		case "uint8":
@@ -249,10 +258,12 @@ func getCorrectMaxByType(fieldType string, value int) int {
 	}
 }
 
+// Получить тип поля для значения поля
 func (f *Field) GetType() string {
 	return getTypeByType(f.Type)
 }
 
+// Получить тип поля для значения поля по типу
 func getTypeByType(fieldType string) string {
 	switch fieldType {
 		case "uint8":

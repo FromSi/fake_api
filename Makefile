@@ -1,6 +1,7 @@
 # Default target
 default_target: help
 
+# Project files with the .go extension
 project_files = $(shell find . -type f -name '*.go' -not -path "./vendor/*")
 
 # Run go project for development

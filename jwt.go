@@ -5,12 +5,14 @@ import (
 	"errors"
 )
 
+// Функция для кодирования данных в JWT
 func jwtEncode(data jwt.MapClaims) (string, error) {
 	jwt := jwt.NewWithClaims(jwt.SigningMethodHS256, data)
 
 	return jwt.SignedString([]byte("secret"))
 }
 
+// Функция для декодирования данных из JWT
 func jwtDecode(token string) (jwt.MapClaims, error) {
 	data, err := jwt.Parse(token, func(t *jwt.Token) (interface{}, error) {
 		return []byte("secret"), nil
@@ -33,6 +35,7 @@ func jwtDecode(token string) (jwt.MapClaims, error) {
 	return claims, nil
 }
 
+// Функция для кодирования полей в JWT
 func jwtDecodeFields(token string) ([]Field, interface{}) {
 	claims, err := jwtDecode(token)
 
@@ -50,6 +53,10 @@ func jwtDecodeFields(token string) ([]Field, interface{}) {
 
 	if !ok {
 		return []Field{}, "Invalid token fields"
+	}
+
+	if len(fieldsClaimArray) > 50 {
+		return []Field{}, "Fields count must be less than 50"
 	}
 
 	var fields []Field
