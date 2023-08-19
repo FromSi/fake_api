@@ -3,6 +3,9 @@ package main
 import (
 	"github.com/golang-jwt/jwt/v5"
 	"errors"
+	"fmt"
+	"os"
+	"strconv"
 )
 
 // Функция для кодирования данных в JWT
@@ -55,8 +58,14 @@ func jwtDecodeFields(token string) ([]Field, interface{}) {
 		return []Field{}, "Invalid token fields"
 	}
 
-	if len(fieldsClaimArray) > 50 {
-		return []Field{}, "Fields count must be less than 50"
+	fakeApiMaxFieldsInObject, err := strconv.Atoi(os.Getenv("FAKE_API_MAX_FIELDS_IN_OBJECT"))
+
+	if err != nil {
+		return []Field{}, err.Error()
+	}
+
+	if len(fieldsClaimArray) > fakeApiMaxFieldsInObject {
+		return []Field{}, fmt.Sprintf("Maximum fields in object is %d", fakeApiMaxFieldsInObject)
 	}
 
 	var fields []Field

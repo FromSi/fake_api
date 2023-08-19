@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"strings"
 	"reflect"
+	"os"
 )
 
 // Получение полей из request header Authorization и декодирование JWT.
@@ -228,7 +229,7 @@ func runHttpServer() {
 	http.HandleFunc("/patch", routePatch)
 	http.HandleFunc("/delete", routeDelete)
 
-	fmt.Println("Server started on :8081")
+	fmt.Println(fmt.Sprintf("Server started on %s:%s", os.Getenv("FAKE_API_HOST"), os.Getenv("FAKE_API_PORT")))
 	
-	http.ListenAndServe(":8081", nil)
+	http.ListenAndServe(fmt.Sprintf("%s:%s", os.Getenv("FAKE_API_HOST"), os.Getenv("FAKE_API_PORT")), nil)
 }

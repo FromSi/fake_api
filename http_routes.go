@@ -7,6 +7,9 @@ import (
 	"github.com/golang-jwt/jwt/v5"
 	"encoding/xml"
 	"encoding/json"
+	"os"
+	"strconv"
+	"fmt"
 )
 
 // Структура для request body в роуте /login.
@@ -67,9 +70,16 @@ func routeLogin(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if len(reuqest.Fields) > 50 {
+	fakeApiMaxFieldsInObject, err := strconv.Atoi(os.Getenv("FAKE_API_MAX_FIELDS_IN_OBJECT"))
+
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		encodeResponse(w, r, RouteError{ Message: err.Error() })
+	}
+
+	if len(reuqest.Fields) > fakeApiMaxFieldsInObject {
 		w.WriteHeader(http.StatusBadRequest)
-		encodeResponse(w, r, RouteError{ Message: "Fields count must be less than 50" })
+		encodeResponse(w, r, RouteError{ Message: fmt.Sprintf("Maximum fields in object is %d", fakeApiMaxFieldsInObject) })
 
 		return 
 	}
