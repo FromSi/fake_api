@@ -1,4 +1,4 @@
-module github.com/fromsi/draft_api
+module github.com/fromsi/fake_api
 
 go 1.21.0
 
