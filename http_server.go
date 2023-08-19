@@ -150,6 +150,8 @@ func decodeRequest(w http.ResponseWriter, r *http.Request, request interface{}) 
 // Проверяется наличие полей, их типы, минимальные и максимальные значения.
 func validateFieldsFromRequest(w http.ResponseWriter, r *http.Request, request map[string]interface{}, fields []Field, isRequired bool, statusCode int) (interface{}, int) {
 	errs := []RouteErrorList{}
+	result := ObjectResponse{}
+	result.Data = map[string]interface{}{}
 
 	for _, field := range fields {
 		isFound := false
@@ -189,6 +191,8 @@ func validateFieldsFromRequest(w http.ResponseWriter, r *http.Request, request m
 	
 			if len(err.Errors) > 0 {
 				errs = append(errs, err)
+			} else {
+				result.Data[k] = v
 			}
 		}
 
@@ -204,7 +208,13 @@ func validateFieldsFromRequest(w http.ResponseWriter, r *http.Request, request m
 	if len(errs) > 0 {
 		return errs, statusCode
 	} else {
-		return RouteSuccess{ Data: "Success: todo rewrite!!!"}, http.StatusCreated
+		for _, field := range fields {
+			if result.Data[field.Name] == nil && r.Method != http.MethodPatch {
+				result.Data[field.Name] = nil
+			}
+		}
+
+		return result, http.StatusCreated
 	}
 }
 

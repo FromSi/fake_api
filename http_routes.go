@@ -5,6 +5,8 @@ import (
 	"math/rand"
 	"time"
 	"github.com/golang-jwt/jwt/v5"
+	"encoding/xml"
+	"encoding/json"
 )
 
 // Структура для request body в роуте /login.
@@ -15,6 +17,18 @@ type RouteLoginRequest struct {
 // Структура для response body в роуте /login.
 type RouteLoginResponse struct {
 	Token string `json:"token" xml:"token"`
+}
+
+// Структура для response body для динамичеких полей
+type ObjectResponse struct {
+	XMLName xml.Name `xml:"object" json:"-"`
+	Data map[string]interface{} `json:"object" xml:"-"`
+}
+
+// Структура для response body для массива динамичеких полей
+type ObjectsResponse struct {
+	XMLName xml.Name `xml:"data" json:"-"`
+	Data []ObjectResponse `json:"data" xml:"object"`
 }
 
 // Структура для response body, если будет ошибка. Если будут две и более ошибки, то используется RouteErrorList.
@@ -85,6 +99,26 @@ func routeLogin(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// Сериализация объекта в XML.
+func (d ObjectResponse) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+    if err := e.EncodeToken(start); err != nil {
+        return err
+    }
+
+    for key, value := range d.Data {
+        if err := e.EncodeElement(value, xml.StartElement{Name: xml.Name{Local: key}}); err != nil {
+            return err
+        }
+    }
+
+    return e.EncodeToken(start.End())
+}
+
+// Сериализация объекта в JSON.
+func (d ObjectResponse) MarshalJSON() ([]byte, error) {
+	return json.Marshal(d.Data)
+}
+
 // Роут для получения объекта со случайными данными. 
 // Данные для полей берутся в зависимости от информации JWT токена.
 func routeShow(w http.ResponseWriter, r *http.Request) {
@@ -109,7 +143,7 @@ func routeShow(w http.ResponseWriter, r *http.Request) {
 		result[field.Name] = field.GetRandomValue()
 	}
 
-	if err := afterRoute(w, r, RouteSuccess{ Data: result }, http.StatusOK); err != nil {
+	if err := afterRoute(w, r, ObjectResponse{ Data: result }, http.StatusOK); err != nil {
 		return
 	}
 }
@@ -130,19 +164,21 @@ func routeList(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	result := make([]map[string]interface{}, 20)
+	result := ObjectsResponse{}
+	result.Data = make([]ObjectResponse, 20)
 
 	rand.New(rand.NewSource(time.Now().UnixNano()))
 
-	for i := range result {
-		result[i] = map[string]interface{}{}
+	for i := range result.Data {
+		result.Data[i] = ObjectResponse{}
+		result.Data[i].Data = map[string]interface{}{}
 
 		for _, field := range fields {
-			result[i][field.Name] = field.GetRandomValue()
+			result.Data[i].Data[field.Name] = field.GetRandomValue()
 		}
 	}
 
-	if err := afterRoute(w, r, RouteSuccess{ Data: result }, http.StatusOK); err != nil {
+	if err := afterRoute(w, r, result, http.StatusOK); err != nil {
 		return
 	}
 }
