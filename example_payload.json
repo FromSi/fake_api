@@ -50,6 +50,20 @@
             "min": -999999
         },
         {
+            "type": "latitude",
+            "name": "latitude",
+            "required": true,
+            "max": 90,
+            "min": -90
+        },
+        {
+            "type": "longitude",
+            "name": "longitude",
+            "required": true,
+            "max": 180,
+            "min": -180
+        },
+        {
             "type": "boolean",
             "name": "boolean",
             "required": true,
@@ -59,6 +73,48 @@
         {
             "type": "string_name",
             "name": "name",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_first_name",
+            "name": "first_name",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_middle_name",
+            "name": "middle_name",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_last_name",
+            "name": "last_name",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_gender",
+            "name": "gender",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_ssn",
+            "name": "ssn",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_hobby",
+            "name": "hobby",
             "required": true,
             "max": 255,
             "min": 1
@@ -85,6 +141,489 @@
             "min": 1
         },
         {
+            "type": "string_country_abr",
+            "name": "country_abr",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_city",
+            "name": "city",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_state",
+            "name": "state_abr",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_street",
+            "name": "street",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_street_name",
+            "name": "street_name",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_street_number",
+            "name": "street_number",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_street_prefix",
+            "name": "street_prefix",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_street_suffix",
+            "name": "street_suffix",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_zip",
+            "name": "zip",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_gametag",
+            "name": "gametag",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_beer_alcohol",
+            "name": "beer_alcohol",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_beer_blg",
+            "name": "beer_blg",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_beer_hop",
+            "name": "beer_hop",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_beer_ibu",
+            "name": "beer_ibu",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_beer_malt",
+            "name": "beer_malt",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_beer_name",
+            "name": "beer_name",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_beer_style",
+            "name": "beer_style",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_beer_yeast",
+            "name": "beer_yeast",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_noun",
+            "name": "noun",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_noun_common",
+            "name": "noun_common",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_noun_concrete",
+            "name": "noun_concrete",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_noun_abstract",
+            "name": "noun_abstract",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_noun_collective_people",
+            "name": "noun_collective_people",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_noun_collective_animal",
+            "name": "noun_collective_animal",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_noun_collective_thing",
+            "name": "noun_collective_thing",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_noun_countable",
+            "name": "noun_countable",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_noun_uncountable",
+            "name": "noun_uncountable",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_verb",
+            "name": "verb",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_verb_action",
+            "name": "verb_action",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_verb_linking",
+            "name": "verb_linking",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_verb_helping",
+            "name": "verb_helping",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_adverb",
+            "name": "adverb",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_adverb_manner",
+            "name": "adverb_manner",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_adverb_degree",
+            "name": "adverb_degree",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_adverb_place",
+            "name": "adverb_place",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_adverb_time_definite",
+            "name": "adverb_time_definite",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_adverb_time_indefinite",
+            "name": "adverb_time_indefinite",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_adverb_frequency_definite",
+            "name": "adverb_frequency_definite",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_adverb_frequency_indefinite",
+            "name": "adverb_frequency_indefinite",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_preposition",
+            "name": "preposition",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_preposition_simple",
+            "name": "preposition_simple",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_preposition_double",
+            "name": "preposition_double",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_preposition_compound",
+            "name": "preposition_compound",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_adjective",
+            "name": "adjective",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_adjective_descriptive",
+            "name": "adjective_descriptive",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_adjective_quantitative",
+            "name": "adjective_quantitative",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_adjective_proper",
+            "name": "adjective_proper",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_adjective_demonstrative",
+            "name": "adjective_demonstrative",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_adjective_possessive",
+            "name": "adjective_possessive",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_adjective_interrogative",
+            "name": "adjective_interrogative",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_adjective_indefinite",
+            "name": "adjective_indefinite",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_pronoun",
+            "name": "pronoun",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_pronoun_personal",
+            "name": "pronoun_personal",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_pronoun_object",
+            "name": "pronoun_object",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_pronoun_possessive",
+            "name": "pronoun_possessive",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_pronoun_reflective",
+            "name": "pronoun_reflective",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_pronoun_demonstrative",
+            "name": "pronoun_demonstrative",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_pronoun_interrogative",
+            "name": "pronoun_interrogative",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_pronoun_relative",
+            "name": "pronoun_relative",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_connective",
+            "name": "connective",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_connective_time",
+            "name": "connective_time",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_connective_comparative",
+            "name": "connective_comparative",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_connective_complaint",
+            "name": "connective_complaint",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_connective_listing",
+            "name": "connective_listing",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_connective_casual",
+            "name": "connective_casual",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_connective_examplify",
+            "name": "connective_examplify",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_question",
+            "name": "question",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_quote",
+            "name": "quote",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_phrase",
+            "name": "phrase",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
             "type": "string_word",
             "name": "word",
             "required": true,
@@ -106,11 +645,25 @@
             "min": 10
         },
         {
+            "type": "string_image_url",
+            "name": "image_url",
+            "required": true,
+            "max": 200,
+            "min": 200
+        },
+        {
             "type": "string_uuid",
             "name": "uuid",
             "required": true,
             "max": 36,
             "min": 36
+        },
+        {
+            "type": "string_color",
+            "name": "color",
+            "required": true,
+            "max": 255,
+            "min": 1
         },
         {
             "type": "string_hex_color",
@@ -120,10 +673,24 @@
             "min": 7
         },
         {
+            "type": "string_safe_color",
+            "name": "safe_color",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
             "type": "string_phone",
             "name": "phone",
             "required": true,
             "max": 20,
+            "min": 1
+        },
+        {
+            "type": "string_phone_formatted",
+            "name": "phone_formatted",
+            "required": true,
+            "max": 255,
             "min": 1
         },
         {
@@ -188,6 +755,97 @@
             "required": true,
             "max": 8,
             "min": 8
+        },
+        {
+            "type": "string_car_maker",
+            "name": "car_maker",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_car_model",
+            "name": "car_model",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_car_type",
+            "name": "car_type",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_car_fuel_type",
+            "name": "car_fuel_type",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_car_transmission_type",
+            "name": "car_transmission_type",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_fruit",
+            "name": "fruit",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_vegetable",
+            "name": "vegetable",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_breakfast",
+            "name": "breakfast",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_lunch",
+            "name": "lunch",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_dinner",
+            "name": "dinner",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_snack",
+            "name": "snack",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_dessert",
+            "name": "dessert",
+            "required": true,
+            "max": 255,
+            "min": 1
+        },
+        {
+            "type": "string_flip_a_coin",
+            "name": "flip_a_coin",
+            "required": true,
+            "max": 255,
+            "min": 1
         }
     ]
 }
