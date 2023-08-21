@@ -14,6 +14,12 @@ run:
 install_dev:
 	go mod download
 
+# Build project
+.PHONY: build
+build:
+	CGO_ENABLED=0 go build -o bin/fake_api -v
+	CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -o bin/fake_api.exe -v
+
 # Help
 .PHONY: help
 help:
@@ -24,3 +30,4 @@ help:
 	@echo "Makefile Targets:"
 	@echo "... run (Run go project for development)"
 	@echo "... install_dev (Install development dependencies)"
+	@echo "... build (Build project)"

@@ -50,6 +50,26 @@ type RouteErrorList struct {
 	Errors []string `json:"errors" xml:"errors>error"`
 }
 
+// Сериализация объекта в XML.
+func (d ObjectResponse) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+    if err := e.EncodeToken(start); err != nil {
+        return err
+    }
+
+    for key, value := range d.Data {
+        if err := e.EncodeElement(value, xml.StartElement{Name: xml.Name{Local: key}}); err != nil {
+            return err
+        }
+    }
+
+    return e.EncodeToken(start.End())
+}
+
+// Сериализация объекта в JSON.
+func (d ObjectResponse) MarshalJSON() ([]byte, error) {
+	return json.Marshal(d.Data)
+}
+
 // Роут для авторизации. Возвращает JWT токен. Поля для токена передаются в request body.
 // Примеры запросов по request body можно посмотреть в файлах example_payload.json и example_payload.xml.
 func routeLogin(w http.ResponseWriter, r *http.Request) {
@@ -107,26 +127,6 @@ func routeLogin(w http.ResponseWriter, r *http.Request) {
 	if err := afterRoute(w, r, response, http.StatusOK); err != nil {
 		return
 	}
-}
-
-// Сериализация объекта в XML.
-func (d ObjectResponse) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
-    if err := e.EncodeToken(start); err != nil {
-        return err
-    }
-
-    for key, value := range d.Data {
-        if err := e.EncodeElement(value, xml.StartElement{Name: xml.Name{Local: key}}); err != nil {
-            return err
-        }
-    }
-
-    return e.EncodeToken(start.End())
-}
-
-// Сериализация объекта в JSON.
-func (d ObjectResponse) MarshalJSON() ([]byte, error) {
-	return json.Marshal(d.Data)
 }
 
 // Роут для получения объекта со случайными данными. 
