@@ -1,5 +1,5 @@
 {
-    "fields": [
+    "data": [
         {
             "type": "uint8",
             "name": "unsigned_integer_8",

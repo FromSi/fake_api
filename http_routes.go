@@ -1,20 +1,21 @@
 package main
 
 import (
-	"net/http"
-	"math/rand"
-	"time"
-	"github.com/golang-jwt/jwt/v5"
-	"encoding/xml"
 	"encoding/json"
+	"encoding/xml"
+	"fmt"
+	"math/rand"
+	"net/http"
 	"os"
 	"strconv"
-	"fmt"
+	"time"
+	"github.com/golang-jwt/jwt/v5"
 )
 
 // Структура для request body в роуте /login.
 type RouteLoginRequest struct {
-	Fields []Field `json:"fields" xml:"fields>field"`
+	XMLName xml.Name `xml:"fields"`
+	Fields []Field `json:"fields" xml:"field"`
 }
 
 // Структура для response body в роуте /login.
@@ -23,35 +24,48 @@ type RouteLoginResponse struct {
 }
 
 // Структура для response body для динамичеких полей
-type ObjectResponse struct {
-	XMLName xml.Name `xml:"object" json:"-"`
+type Item struct {
+	XMLName xml.Name `xml:"-" json:"-"`
 	Data map[string]interface{} `json:"object" xml:"-"`
 }
 
 // Структура для response body для массива динамичеких полей
-type ObjectsResponse struct {
+type Data struct {
 	XMLName xml.Name `xml:"data" json:"-"`
-	Data []ObjectResponse `json:"data" xml:"object"`
+	Data []Item `json:"data" xml:"item"`
 }
 
 // Структура для response body, если будет ошибка. Если будут две и более ошибки, то используется RouteErrorList.
 type RouteError struct {
+	XMLName xml.Name `xml:"data" json:"-"`
 	Message interface{} `json:"message" xml:"message"`
 }
 
 // Структура для response body, если будет успех.
 type RouteSuccess struct {
+	XMLName xml.Name `xml:"data" json:"-"`
 	Data interface{} `json:"data" xml:"data"`
 }
 
 // Структура для ошибок валидации. Обычно используется там, где есть массив ошибок и RouteError не подходит.
 type RouteErrorList struct {
+	XMLName xml.Name `xml:"data" json:"-"`
 	Index string `json:"index" xml:"index,attr"`
 	Errors []string `json:"errors" xml:"errors>error"`
 }
 
+// Костыль для сериализации RouteErrorList в XML.
+type RouteErrorListXML struct {
+	XMLName xml.Name `xml:"data" json:"-"`
+	Data []RouteErrorList `json:"data" xml:"item"`
+}
+
 // Сериализация объекта в XML.
-func (d ObjectResponse) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+func (d Item) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	if start.Name.Local == "Item" {
+		start.Name.Local = "data"
+	}
+
     if err := e.EncodeToken(start); err != nil {
         return err
     }
@@ -65,9 +79,49 @@ func (d ObjectResponse) MarshalXML(e *xml.Encoder, start xml.StartElement) error
     return e.EncodeToken(start.End())
 }
 
+// Десериализация объекта из XML. Пример XML: <data> <id>123</id><id2>123</id2> </data>
+func (o *Item) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	o.Data = make(map[string]interface{})
+
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+
+		switch token := token.(type) {
+		case xml.StartElement:
+			var value string
+
+			if err := d.DecodeElement(&value, &token); err != nil {
+				return err
+			}
+
+			o.Data[token.Name.Local] = value
+		case xml.EndElement:
+			if token == start.End() {
+				return nil
+			}
+		}
+	}
+}
+
 // Сериализация объекта в JSON.
-func (d ObjectResponse) MarshalJSON() ([]byte, error) {
+func (d Item) MarshalJSON() ([]byte, error) {
 	return json.Marshal(d.Data)
+}
+
+// Десериализация объекта из JSON.
+func (o *Item) UnmarshalJSON(data []byte) error {
+	var v map[string]interface{}
+
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+
+	o.Data = v
+
+	return nil
 }
 
 // Роут для авторизации. Возвращает JWT токен. Поля для токена передаются в request body.
@@ -145,15 +199,16 @@ func routeShow(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	result := map[string]interface{}{}
+	result := Item{}
+	result.Data = map[string]interface{}{}
 
 	rand.New(rand.NewSource(time.Now().UnixNano()))
 
 	for _, field := range fields {
-		result[field.Name] = field.GetRandomValue()
+		result.Data[field.Name] = field.GetRandomValue()
 	}
 
-	if err := afterRoute(w, r, ObjectResponse{ Data: result }, http.StatusOK); err != nil {
+	if err := afterRoute(w, r, result, http.StatusOK); err != nil {
 		return
 	}
 }
@@ -174,13 +229,13 @@ func routeList(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	result := ObjectsResponse{}
-	result.Data = make([]ObjectResponse, 20)
+	result := Data{}
+	result.Data = make([]Item, 20)
 
 	rand.New(rand.NewSource(time.Now().UnixNano()))
 
 	for i := range result.Data {
-		result.Data[i] = ObjectResponse{}
+		result.Data[i] = Item{}
 		result.Data[i].Data = map[string]interface{}{}
 
 		for _, field := range fields {
@@ -210,7 +265,7 @@ func routeCreate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var request map[string]interface{}
+	var request Item
 
 	if err := decodeRequest(w, r, &request); err != nil {
 		return
@@ -240,7 +295,7 @@ func routePut(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var request map[string]interface{}
+	var request Item
 
 	if err := decodeRequest(w, r, &request); err != nil {
 		return
@@ -270,7 +325,7 @@ func routePatch(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var request map[string]interface{}
+	var request Item
 
 	if err := decodeRequest(w, r, &request); err != nil {
 		return

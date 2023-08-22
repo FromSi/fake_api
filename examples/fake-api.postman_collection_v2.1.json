@@ -8,151 +8,1557 @@
 	},
 	"item": [
 		{
-			"name": "Получение JWT",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"fields\": [\n        {\n            \"type\": \"uint32\",\n            \"name\": \"id\",\n            \"required\": true,\n            \"max\": 4294967295,\n            \"min\": 0\n        },\n        {\n            \"type\": \"string_sentence\",\n            \"name\": \"title\",\n            \"required\": true,\n            \"max\": 3,\n            \"min\": 1\n        },\n        {\n            \"type\": \"string_sentence\",\n            \"name\": \"description\",\n            \"required\": false,\n            \"max\": 200,\n            \"min\": 1\n        },\n        {\n            \"type\": \"string_url\",\n            \"name\": \"url\",\n            \"required\": false,\n            \"max\": 255,\n            \"min\": 10\n        },\n        {\n            \"type\": \"string_image_url\",\n            \"name\": \"image_url\",\n            \"required\": false,\n            \"max\": 600,\n            \"min\": 200\n        },\n        {\n            \"type\": \"string_date_time\",\n            \"name\": \"created_at\",\n            \"required\": false,\n            \"max\": 19,\n            \"min\": 19\n        },\n        {\n            \"type\": \"boolean\",\n            \"name\": \"is_active\",\n            \"required\": false,\n            \"max\": 1,\n            \"min\": 0\n        }\n    ]\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "application/json",
+			"item": [
+				{
+					"name": "Получение JWT",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "<data>\n    <item>\n        <type>uint8</type>\n        <name>id</name>\n        <required>true</required>\n        <max>255</max>\n        <min>0</min>\n    </item>\n</data>\n",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/login",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"login"
+							]
 						}
-					}
-				},
-				"url": {
-					"raw": "{{domain}}/login",
-					"host": [
-						"{{domain}}"
-					],
-					"path": [
-						"login"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Список",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{domain}}/list",
-					"host": [
-						"{{domain}}"
-					],
-					"path": [
-						"list"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Объект",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{domain}}/show",
-					"host": [
-						"{{domain}}"
-					],
-					"path": [
-						"show"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Создать",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
+					},
+					"response": [
 						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaWVsZHMiOlt7InR5cGUiOiJ1aW50OCIsIm5hbWUiOiJmaWVsZF9hIiwicmVxdWlyZWQiOnRydWUsIm1heCI6MiwibWluIjowfSx7InR5cGUiOiJzdHJpbmdfdXNlcm5hbWUiLCJuYW1lIjoidXNlcm5hbWUiLCJyZXF1aXJlZCI6dHJ1ZSwibWF4IjoyNTUsIm1pbiI6MX1dfQ.tj9f2JKEJ3izn-PwlBTYhZucU6zaqKcFL_mZ-owHr3w",
-							"type": "string"
+							"name": "Успех",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"fields\": [\n    {\n      \"type\": \"uint32\",\n      \"name\": \"id\",\n      \"required\": true,\n      \"max\": 4294967295,\n      \"min\": 0\n    },\n    {\n      \"type\": \"string_first_name\",\n      \"name\": \"first_name\",\n      \"required\": true,\n      \"max\": 255,\n      \"min\": 1\n    },\n    {\n      \"type\": \"string_email\",\n      \"name\": \"email\",\n      \"required\": true,\n      \"max\": 255,\n      \"min\": 5\n    },\n    {\n      \"type\": \"string_username\",\n      \"name\": \"username\",\n      \"required\": true,\n      \"max\": 255,\n      \"min\": 1\n    },\n    {\n      \"type\": \"string_gender\",\n      \"name\": \"gender\",\n      \"required\": false,\n      \"max\": 255,\n      \"min\": 1\n    },\n    {\n      \"type\": \"string_middle_name\",\n      \"name\": \"middle_name\",\n      \"required\": false,\n      \"max\": 255,\n      \"min\": 1\n    },\n    {\n      \"type\": \"string_last_name\",\n      \"name\": \"last_name\",\n      \"required\": false,\n      \"max\": 255,\n      \"min\": 1\n    },\n    {\n      \"type\": \"string_ssn\",\n      \"name\": \"ssn\",\n      \"required\": false,\n      \"max\": 255,\n      \"min\": 1\n    },\n    {\n      \"type\": \"string_hobby\",\n      \"name\": \"hobby\",\n      \"required\": false,\n      \"max\": 255,\n      \"min\": 1\n    },\n    {\n      \"type\": \"string_country\",\n      \"name\": \"country\",\n      \"required\": false,\n      \"max\": 255,\n      \"min\": 1\n    },\n    {\n      \"type\": \"string_image_url\",\n      \"name\": \"avatar_url\",\n      \"required\": false,\n      \"max\": 150,\n      \"min\": 150\n    },\n    {\n      \"type\": \"string_image_url\",\n      \"name\": \"background_url\",\n      \"required\": false,\n      \"max\": 600,\n      \"min\": 200\n    },\n    {\n      \"type\": \"string_date_time\",\n      \"name\": \"created_at\",\n      \"required\": false,\n      \"max\": 19,\n      \"min\": 19\n    }\n  ]\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/login",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Aug 2023 16:54:11 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1482"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaWVsZHMiOlt7InR5cGUiOiJ1aW50MzIiLCJuYW1lIjoiaWQiLCJyZXF1aXJlZCI6dHJ1ZSwibWF4Ijo0Mjk0OTY3Mjk1LCJtaW4iOjB9LHsidHlwZSI6InN0cmluZ19maXJzdF9uYW1lIiwibmFtZSI6ImZpcnN0X25hbWUiLCJyZXF1aXJlZCI6dHJ1ZSwibWF4IjoyNTUsIm1pbiI6MX0seyJ0eXBlIjoic3RyaW5nX2VtYWlsIiwibmFtZSI6ImVtYWlsIiwicmVxdWlyZWQiOnRydWUsIm1heCI6MjU1LCJtaW4iOjV9LHsidHlwZSI6InN0cmluZ191c2VybmFtZSIsIm5hbWUiOiJ1c2VybmFtZSIsInJlcXVpcmVkIjp0cnVlLCJtYXgiOjI1NSwibWluIjoxfSx7InR5cGUiOiJzdHJpbmdfZ2VuZGVyIiwibmFtZSI6ImdlbmRlciIsInJlcXVpcmVkIjpmYWxzZSwibWF4IjoyNTUsIm1pbiI6MX0seyJ0eXBlIjoic3RyaW5nX21pZGRsZV9uYW1lIiwibmFtZSI6Im1pZGRsZV9uYW1lIiwicmVxdWlyZWQiOmZhbHNlLCJtYXgiOjI1NSwibWluIjoxfSx7InR5cGUiOiJzdHJpbmdfbGFzdF9uYW1lIiwibmFtZSI6Imxhc3RfbmFtZSIsInJlcXVpcmVkIjpmYWxzZSwibWF4IjoyNTUsIm1pbiI6MX0seyJ0eXBlIjoic3RyaW5nX3NzbiIsIm5hbWUiOiJzc24iLCJyZXF1aXJlZCI6ZmFsc2UsIm1heCI6MjU1LCJtaW4iOjF9LHsidHlwZSI6InN0cmluZ19ob2JieSIsIm5hbWUiOiJob2JieSIsInJlcXVpcmVkIjpmYWxzZSwibWF4IjoyNTUsIm1pbiI6MX0seyJ0eXBlIjoic3RyaW5nX2NvdW50cnkiLCJuYW1lIjoiY291bnRyeSIsInJlcXVpcmVkIjpmYWxzZSwibWF4IjoyNTUsIm1pbiI6MX0seyJ0eXBlIjoic3RyaW5nX2ltYWdlX3VybCIsIm5hbWUiOiJhdmF0YXJfdXJsIiwicmVxdWlyZWQiOmZhbHNlLCJtYXgiOjE1MCwibWluIjoxNTB9LHsidHlwZSI6InN0cmluZ19pbWFnZV91cmwiLCJuYW1lIjoiYmFja2dyb3VuZF91cmwiLCJyZXF1aXJlZCI6ZmFsc2UsIm1heCI6NjAwLCJtaW4iOjIwMH0seyJ0eXBlIjoic3RyaW5nX2RhdGVfdGltZSIsIm5hbWUiOiJjcmVhdGVkX2F0IiwicmVxdWlyZWQiOmZhbHNlLCJtYXgiOjE5LCJtaW4iOjE5fV19.XQqXKf0drS0ObGvg7LWMsWRt7haWoFmxYh5uhXr0EN8\"\n}"
+						},
+						{
+							"name": "Ошибка",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"fields1\": [\n    {\n      \"type\": \"uint32\",\n      \"name\": \"id\",\n      \"required\": true,\n      \"max\": 4294967295,\n      \"min\": 0\n    },\n    {\n      \"type\": \"string_first_name\",\n      \"name\": \"first_name\",\n      \"required\": true,\n      \"max\": 255,\n      \"min\": 1\n    },\n    {\n      \"type\": \"string_email\",\n      \"name\": \"email\",\n      \"required\": true,\n      \"max\": 255,\n      \"min\": 5\n    },\n    {\n      \"type\": \"string_username\",\n      \"name\": \"username\",\n      \"required\": true,\n      \"max\": 255,\n      \"min\": 1\n    },\n    {\n      \"type\": \"string_gender\",\n      \"name\": \"gender\",\n      \"required\": false,\n      \"max\": 255,\n      \"min\": 1\n    },\n    {\n      \"type\": \"string_middle_name\",\n      \"name\": \"middle_name\",\n      \"required\": false,\n      \"max\": 255,\n      \"min\": 1\n    },\n    {\n      \"type\": \"string_last_name\",\n      \"name\": \"last_name\",\n      \"required\": false,\n      \"max\": 255,\n      \"min\": 1\n    },\n    {\n      \"type\": \"string_ssn\",\n      \"name\": \"ssn\",\n      \"required\": false,\n      \"max\": 255,\n      \"min\": 1\n    },\n    {\n      \"type\": \"string_hobby\",\n      \"name\": \"hobby\",\n      \"required\": false,\n      \"max\": 255,\n      \"min\": 1\n    },\n    {\n      \"type\": \"string_country\",\n      \"name\": \"country\",\n      \"required\": false,\n      \"max\": 255,\n      \"min\": 1\n    },\n    {\n      \"type\": \"string_image_url\",\n      \"name\": \"avatar_url\",\n      \"required\": false,\n      \"max\": 150,\n      \"min\": 150\n    },\n    {\n      \"type\": \"string_image_url\",\n      \"name\": \"background_url\",\n      \"required\": false,\n      \"max\": 600,\n      \"min\": 200\n    },\n    {\n      \"type\": \"string_date_time\",\n      \"name\": \"created_at\",\n      \"required\": false,\n      \"max\": 19,\n      \"min\": 19\n    }\n  ]\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/login",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Aug 2023 16:56:05 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "34"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Fields are required\"\n}"
 						}
 					]
 				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
+				{
+					"name": "Список",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{domain}}/list",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"list"
+							]
 						}
-					}
+					},
+					"response": [
+						{
+							"name": "Успех",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{domain}}/list",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"list"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Aug 2023 16:43:50 GMT"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"avatar_url\": \"https://picsum.photos/150/150\",\n            \"background_url\": \"https://picsum.photos/600/600\",\n            \"country\": \"Bonaire, Sint Eustatius and Saba\",\n            \"created_at\": \"2023-08-23 08:43:50\",\n            \"email\": \"eliascasper@fay.info\",\n            \"first_name\": \"Herta\",\n            \"gender\": \"male\",\n            \"hobby\": \"Cartophily\",\n            \"id\": 3383648938,\n            \"last_name\": \"Willms\",\n            \"middle_name\": \"Donna\",\n            \"ssn\": \"965378701\",\n            \"username\": \"Huel1400\"\n        },\n        {\n            \"avatar_url\": \"https://picsum.photos/150/150\",\n            \"background_url\": \"https://picsum.photos/600/600\",\n            \"country\": \"Tanzania, United Republic of\",\n            \"created_at\": \"2023-08-23 06:43:50\",\n            \"email\": \"ednajohnson@larson.net\",\n            \"first_name\": \"Abbie\",\n            \"gender\": \"female\",\n            \"hobby\": \"Sculpting\",\n            \"id\": 2009635527,\n            \"last_name\": \"Gleichner\",\n            \"middle_name\": \"Johanna\",\n            \"ssn\": \"892687986\",\n            \"username\": \"Kris9580\"\n        },\n        {\n            \"avatar_url\": \"https://picsum.photos/150/150\",\n            \"background_url\": \"https://picsum.photos/600/600\",\n            \"country\": \"Svalbard and Jan Mayen\",\n            \"created_at\": \"2023-08-23 08:43:50\",\n            \"email\": \"jeaniewest@thiel.io\",\n            \"first_name\": \"Eliane\",\n            \"gender\": \"male\",\n            \"hobby\": \"Triathlon\",\n            \"id\": 635232800,\n            \"last_name\": \"Baumbach\",\n            \"middle_name\": \"Gage\",\n            \"ssn\": \"121819383\",\n            \"username\": \"Leuschke6277\"\n        },\n        {\n            \"avatar_url\": \"https://picsum.photos/150/150\",\n            \"background_url\": \"https://picsum.photos/600/600\",\n            \"country\": \"Belize\",\n            \"created_at\": \"2023-08-23 10:43:50\",\n            \"email\": \"kielruecker@runolfsson.com\",\n            \"first_name\": \"Geoffrey\",\n            \"gender\": \"female\",\n            \"hobby\": \"Podcast hosting\",\n            \"id\": 1747591993,\n            \"last_name\": \"Heathcote\",\n            \"middle_name\": \"Heath\",\n            \"ssn\": \"283793259\",\n            \"username\": \"Kassulke6949\"\n        },\n        {\n            \"avatar_url\": \"https://picsum.photos/150/150\",\n            \"background_url\": \"https://picsum.photos/600/600\",\n            \"country\": \"Kyrgyzstan\",\n            \"created_at\": \"2023-08-22 23:43:50\",\n            \"email\": \"oletafeest@lowe.net\",\n            \"first_name\": \"Raquel\",\n            \"gender\": \"female\",\n            \"hobby\": \"Shooting\",\n            \"id\": 3033393743,\n            \"last_name\": \"Marquardt\",\n            \"middle_name\": \"Courtney\",\n            \"ssn\": \"193001381\",\n            \"username\": \"Schamberger9397\"\n        },\n        {\n            \"avatar_url\": \"https://picsum.photos/150/150\",\n            \"background_url\": \"https://picsum.photos/600/600\",\n            \"country\": \"Falkland Islands (Malvinas)\",\n            \"created_at\": \"2023-08-23 09:43:50\",\n            \"email\": \"oralbuckridge@dibbert.org\",\n            \"first_name\": \"Ada\",\n            \"gender\": \"male\",\n            \"hobby\": \"Crocheting\",\n            \"id\": 1036585931,\n            \"last_name\": \"Hahn\",\n            \"middle_name\": \"Tess\",\n            \"ssn\": \"191772033\",\n            \"username\": \"Cremin4876\"\n        },\n        {\n            \"avatar_url\": \"https://picsum.photos/150/150\",\n            \"background_url\": \"https://picsum.photos/600/600\",\n            \"country\": \"Bermuda\",\n            \"created_at\": \"2023-08-23 00:43:50\",\n            \"email\": \"jarenemard@rice.info\",\n            \"first_name\": \"Margarete\",\n            \"gender\": \"female\",\n            \"hobby\": \"Cross-stitch\",\n            \"id\": 1533295204,\n            \"last_name\": \"Hyatt\",\n            \"middle_name\": \"Javier\",\n            \"ssn\": \"638339616\",\n            \"username\": \"Powlowski5018\"\n        },\n        {\n            \"avatar_url\": \"https://picsum.photos/150/150\",\n            \"background_url\": \"https://picsum.photos/600/600\",\n            \"country\": \"Saint Barthélemy\",\n            \"created_at\": \"2023-08-23 07:43:50\",\n            \"email\": \"alberthamaggio@wintheiser.biz\",\n            \"first_name\": \"Colby\",\n            \"gender\": \"male\",\n            \"hobby\": \"History\",\n            \"id\": 2563275219,\n            \"last_name\": \"Hauck\",\n            \"middle_name\": \"Hunter\",\n            \"ssn\": \"244845078\",\n            \"username\": \"Heaney1570\"\n        },\n        {\n            \"avatar_url\": \"https://picsum.photos/150/150\",\n            \"background_url\": \"https://picsum.photos/600/600\",\n            \"country\": \"United States of America\",\n            \"created_at\": \"2023-08-23 01:43:50\",\n            \"email\": \"graciewindler@haag.info\",\n            \"first_name\": \"Peggie\",\n            \"gender\": \"female\",\n            \"hobby\": \"Bullet journaling\",\n            \"id\": 1016532449,\n            \"last_name\": \"Rolfson\",\n            \"middle_name\": \"Hiroshi\",\n            \"ssn\": \"324407998\",\n            \"username\": \"Rolfson4159\"\n        },\n        {\n            \"avatar_url\": \"https://picsum.photos/150/150\",\n            \"background_url\": \"https://picsum.photos/600/600\",\n            \"country\": \"Congo, Democratic Republic of the\",\n            \"created_at\": \"2023-08-23 09:43:50\",\n            \"email\": \"brookskassulke@ernser.org\",\n            \"first_name\": \"Ryder\",\n            \"gender\": \"male\",\n            \"hobby\": \"High-power rocketry\",\n            \"id\": 2265615990,\n            \"last_name\": \"Schmitt\",\n            \"middle_name\": \"Ren\",\n            \"ssn\": \"829136650\",\n            \"username\": \"Kozey9907\"\n        },\n        {\n            \"avatar_url\": \"https://picsum.photos/150/150\",\n            \"background_url\": \"https://picsum.photos/600/600\",\n            \"country\": \"Finland\",\n            \"created_at\": \"2023-08-23 05:43:50\",\n            \"email\": \"vanschmidt@dicki.org\",\n            \"first_name\": \"Leonardo\",\n            \"gender\": \"female\",\n            \"hobby\": \"Watching television\",\n            \"id\": 1256868382,\n            \"last_name\": \"Kautzer\",\n            \"middle_name\": \"Vieda\",\n            \"ssn\": \"776853035\",\n            \"username\": \"Windler7519\"\n        },\n        {\n            \"avatar_url\": \"https://picsum.photos/150/150\",\n            \"background_url\": \"https://picsum.photos/600/600\",\n            \"country\": \"French Southern Territories\",\n            \"created_at\": \"2023-08-23 02:43:50\",\n            \"email\": \"joliewolf@rogahn.net\",\n            \"first_name\": \"Alena\",\n            \"gender\": \"male\",\n            \"hobby\": \"Birdwatching\",\n            \"id\": 3009787330,\n            \"last_name\": \"Grant\",\n            \"middle_name\": \"Laurel\",\n            \"ssn\": \"847229969\",\n            \"username\": \"Hodkiewicz2632\"\n        },\n        {\n            \"avatar_url\": \"https://picsum.photos/150/150\",\n            \"background_url\": \"https://picsum.photos/600/600\",\n            \"country\": \"Anguilla\",\n            \"created_at\": \"2023-08-23 04:43:50\",\n            \"email\": \"erickalegros@bins.org\",\n            \"first_name\": \"Ephraim\",\n            \"gender\": \"male\",\n            \"hobby\": \"Whittling\",\n            \"id\": 1793522949,\n            \"last_name\": \"McCullough\",\n            \"middle_name\": \"Clara\",\n            \"ssn\": \"795687601\",\n            \"username\": \"Grant4336\"\n        },\n        {\n            \"avatar_url\": \"https://picsum.photos/150/150\",\n            \"background_url\": \"https://picsum.photos/600/600\",\n            \"country\": \"Pitcairn\",\n            \"created_at\": \"2023-08-23 08:43:50\",\n            \"email\": \"angelodibbert@considine.com\",\n            \"first_name\": \"Evalyn\",\n            \"gender\": \"male\",\n            \"hobby\": \"Marbles\",\n            \"id\": 1605068377,\n            \"last_name\": \"Brakus\",\n            \"middle_name\": \"Greer\",\n            \"ssn\": \"530719713\",\n            \"username\": \"Macejkovic5001\"\n        },\n        {\n            \"avatar_url\": \"https://picsum.photos/150/150\",\n            \"background_url\": \"https://picsum.photos/600/600\",\n            \"country\": \"Honduras\",\n            \"created_at\": \"2023-08-23 07:43:50\",\n            \"email\": \"leoneshanahan@hudson.net\",\n            \"first_name\": \"Orlando\",\n            \"gender\": \"female\",\n            \"hobby\": \"Digital hoarding\",\n            \"id\": 3108290613,\n            \"last_name\": \"Stokes\",\n            \"middle_name\": \"Alyssa\",\n            \"ssn\": \"477241708\",\n            \"username\": \"Reilly8409\"\n        },\n        {\n            \"avatar_url\": \"https://picsum.photos/150/150\",\n            \"background_url\": \"https://picsum.photos/600/600\",\n            \"country\": \"Antigua and Barbuda\",\n            \"created_at\": \"2023-08-23 06:43:50\",\n            \"email\": \"marceloherman@schmidt.org\",\n            \"first_name\": \"Lonnie\",\n            \"gender\": \"female\",\n            \"hobby\": \"Knife throwing\",\n            \"id\": 1525381044,\n            \"last_name\": \"Terry\",\n            \"middle_name\": \"Deshawn\",\n            \"ssn\": \"663071767\",\n            \"username\": \"Trantow1534\"\n        },\n        {\n            \"avatar_url\": \"https://picsum.photos/150/150\",\n            \"background_url\": \"https://picsum.photos/600/600\",\n            \"country\": \"Saint Barthélemy\",\n            \"created_at\": \"2023-08-23 07:43:50\",\n            \"email\": \"kayleewhite@ledner.io\",\n            \"first_name\": \"Talia\",\n            \"gender\": \"female\",\n            \"hobby\": \"Skydiving\",\n            \"id\": 2635134303,\n            \"last_name\": \"Hamill\",\n            \"middle_name\": \"Abdul\",\n            \"ssn\": \"212757290\",\n            \"username\": \"Bayer8837\"\n        },\n        {\n            \"avatar_url\": \"https://picsum.photos/150/150\",\n            \"background_url\": \"https://picsum.photos/600/600\",\n            \"country\": \"Cabo Verde\",\n            \"created_at\": \"2023-08-23 00:43:50\",\n            \"email\": \"perryanderson@swift.com\",\n            \"first_name\": \"Lexie\",\n            \"gender\": \"female\",\n            \"hobby\": \"Book discussion clubs\",\n            \"id\": 610944312,\n            \"last_name\": \"Wolff\",\n            \"middle_name\": \"Jesse\",\n            \"ssn\": \"571084562\",\n            \"username\": \"Ratke3410\"\n        },\n        {\n            \"avatar_url\": \"https://picsum.photos/150/150\",\n            \"background_url\": \"https://picsum.photos/600/600\",\n            \"country\": \"Mali\",\n            \"created_at\": \"2023-08-23 03:43:50\",\n            \"email\": \"nicklausmertz@schiller.net\",\n            \"first_name\": \"Abigale\",\n            \"gender\": \"male\",\n            \"hobby\": \"Lego building\",\n            \"id\": 3597644694,\n            \"last_name\": \"Nicolas\",\n            \"middle_name\": \"Lona\",\n            \"ssn\": \"413581505\",\n            \"username\": \"Ortiz1830\"\n        },\n        {\n            \"avatar_url\": \"https://picsum.photos/150/150\",\n            \"background_url\": \"https://picsum.photos/600/600\",\n            \"country\": \"Sierra Leone\",\n            \"created_at\": \"2023-08-23 06:43:50\",\n            \"email\": \"soniaweimann@harber.com\",\n            \"first_name\": \"Lisa\",\n            \"gender\": \"female\",\n            \"hobby\": \"Book restoration\",\n            \"id\": 3277584011,\n            \"last_name\": \"Bartoletti\",\n            \"middle_name\": \"Lou\",\n            \"ssn\": \"420505036\",\n            \"username\": \"Russel9629\"\n        }\n    ]\n}"
+						},
+						{
+							"name": "Ошибка",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{domain}}/list",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"list"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Aug 2023 16:57:01 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "79"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"token is malformed: token contains an invalid number of segments\"\n}"
+						}
+					]
 				},
-				"url": {
-					"raw": "{{domain}}/create",
-					"host": [
-						"{{domain}}"
-					],
-					"path": [
-						"create"
+				{
+					"name": "Объект",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{domain}}/show",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"show"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Успех",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{domain}}/show",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"show"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Aug 2023 16:44:30 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "346"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"avatar_url\": \"https://picsum.photos/150/150\",\n    \"background_url\": \"https://picsum.photos/600/600\",\n    \"country\": \"Israel\",\n    \"created_at\": \"2023-08-23 07:44:30\",\n    \"email\": \"jordanmorar@hamill.org\",\n    \"first_name\": \"Luisa\",\n    \"gender\": \"female\",\n    \"hobby\": \"Taekwondo\",\n    \"id\": 401065849,\n    \"last_name\": \"Kassulke\",\n    \"middle_name\": \"Georgia\",\n    \"ssn\": \"214090538\",\n    \"username\": \"Cassin2178\"\n}"
+						},
+						{
+							"name": "Ошибка",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{domain}}/show",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"show"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Aug 2023 16:57:17 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "79"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"token is malformed: token contains an invalid number of segments\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Удалить",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{domain}}/delete",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"delete"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Успех",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{domain}}/delete",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"delete"
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Aug 2023 16:45:25 GMT"
+								}
+							],
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "Ошибка",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{domain}}/delete",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"delete"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Aug 2023 16:57:27 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "79"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"token is malformed: token contains an invalid number of segments\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Изменить частично",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"fake\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/patch",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"patch"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Успех",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"fake\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/patch",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"patch"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Aug 2023 16:47:08 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "20"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"username\": \"fake\"\n}"
+						},
+						{
+							"name": "Ошибка",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"123\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/patch",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"patch"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Aug 2023 16:58:41 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "55"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"index\": \"id\",\n        \"errors\": [\n            \"Field has incorrect type\"\n        ]\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Создать",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1,\n    \"first_name\": \"fake\",\n    \"email\": \"example@example.com\",\n    \"username\": \"fake_2\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/create",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"create"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Успех",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": 1,\n    \"first_name\": \"fake\",\n    \"email\": \"example@example.com\",\n    \"username\": \"fake_2\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/create",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"create"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Aug 2023 16:51:23 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "226"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"avatar_url\": null,\n    \"background_url\": null,\n    \"country\": null,\n    \"created_at\": null,\n    \"email\": \"example@example.com\",\n    \"first_name\": \"fake\",\n    \"gender\": null,\n    \"hobby\": null,\n    \"id\": 1,\n    \"last_name\": null,\n    \"middle_name\": null,\n    \"ssn\": null,\n    \"username\": \"fake_2\"\n}"
+						},
+						{
+							"name": "Ошибка",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"1\",\n    \"first_name\": 123,\n    \"email\": 123,\n    \"username\": 123\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/create",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"create"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Aug 2023 16:58:59 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "231"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"index\": \"id\",\n        \"errors\": [\n            \"Field has incorrect type\"\n        ]\n    },\n    {\n        \"index\": \"first_name\",\n        \"errors\": [\n            \"Field has incorrect type\"\n        ]\n    },\n    {\n        \"index\": \"email\",\n        \"errors\": [\n            \"Field has incorrect type\"\n        ]\n    },\n    {\n        \"index\": \"username\",\n        \"errors\": [\n            \"Field has incorrect type\"\n        ]\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Изменить в целом",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1,\n    \"first_name\": \"fake\",\n    \"email\": \"example@example.com\",\n    \"username\": \"fake_2\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/put",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"put"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Успех",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": 1,\n    \"first_name\": \"fake\",\n    \"email\": \"example@example.com\",\n    \"username\": \"fake_2\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/put",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"put"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Aug 2023 16:54:02 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "226"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"avatar_url\": null,\n    \"background_url\": null,\n    \"country\": null,\n    \"created_at\": null,\n    \"email\": \"example@example.com\",\n    \"first_name\": \"fake\",\n    \"gender\": null,\n    \"hobby\": null,\n    \"id\": 1,\n    \"last_name\": null,\n    \"middle_name\": null,\n    \"ssn\": null,\n    \"username\": \"fake_2\"\n}"
+						},
+						{
+							"name": "Ошибка",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"1\",\n    \"first_name\": 123,\n    \"email\": \"1\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/put",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"put"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Aug 2023 16:59:21 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "228"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"index\": \"id\",\n        \"errors\": [\n            \"Field has incorrect type\"\n        ]\n    },\n    {\n        \"index\": \"first_name\",\n        \"errors\": [\n            \"Field has incorrect type\"\n        ]\n    },\n    {\n        \"index\": \"email\",\n        \"errors\": [\n            \"Field has incorrect min length\"\n        ]\n    },\n    {\n        \"index\": \"username\",\n        \"errors\": [\n            \"Field not found\"\n        ]\n    }\n]"
+						}
 					]
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "Удалить",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "{{domain}}/delete",
-					"host": [
-						"{{domain}}"
-					],
-					"path": [
-						"delete"
+			"name": "application/xml",
+			"item": [
+				{
+					"name": "Получение JWT",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "<fields>\n    <field>\n        <type>uint32</type>\n        <name>id</name>\n        <required>true</required>\n        <max>4294967295</max>\n        <min>0</min>\n    </field>\n    <field>\n        <type>string_first_name</type>\n        <name>first_name</name>\n        <required>true</required>\n        <max>255</max>\n        <min>1</min>\n    </field>\n    <field>\n        <type>string_email</type>\n        <name>email</name>\n        <required>true</required>\n        <max>255</max>\n        <min>5</min>\n    </field>\n    <field>\n        <type>string_username</type>\n        <name>username</name>\n        <required>true</required>\n        <max>255</max>\n        <min>1</min>\n    </field>\n    <field>\n        <type>string_gender</type>\n        <name>gender</name>\n        <required>false</required>\n        <max>255</max>\n        <min>1</min>\n    </field>\n    <field>\n        <type>string_middle_name</type>\n        <name>middle_name</name>\n        <required>false</required>\n        <max>255</max>\n        <min>1</min>\n    </field>\n    <field>\n        <type>string_last_name</type>\n        <name>last_name</name>\n        <required>false</required>\n        <max>255</max>\n        <min>1</min>\n    </field>\n    <field>\n        <type>string_ssn</type>\n        <name>ssn</name>\n        <required>false</required>\n        <max>255</max>\n        <min>1</min>\n    </field>\n    <field>\n        <type>string_hobby</type>\n        <name>hobby</name>\n        <required>false</required>\n        <max>255</max>\n        <min>1</min>\n    </field>\n    <field>\n        <type>string_country</type>\n        <name>country</name>\n        <required>false</required>\n        <max>255</max>\n        <min>1</min>\n    </field>\n    <field>\n        <type>string_image_url</type>\n        <name>avatar_url</name>\n        <required>false</required>\n        <max>150</max>\n        <min>150</min>\n    </field>\n    <field>\n        <type>string_image_url</type>\n        <name>background_url</name>\n        <required>false</required>\n        <max>600</max>\n        <min>200</min>\n    </field>\n    <field>\n        <type>string_date_time</type>\n        <name>created_at</name>\n        <required>false</required>\n        <max>19</max>\n        <min>19</min>\n    </field>\n</fields>\n",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/login",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Успех",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "<fields>\n    <field>\n        <type>uint32</type>\n        <name>id</name>\n        <required>true</required>\n        <max>4294967295</max>\n        <min>0</min>\n    </field>\n    <field>\n        <type>string_first_name</type>\n        <name>first_name</name>\n        <required>true</required>\n        <max>255</max>\n        <min>1</min>\n    </field>\n    <field>\n        <type>string_email</type>\n        <name>email</name>\n        <required>true</required>\n        <max>255</max>\n        <min>5</min>\n    </field>\n    <field>\n        <type>string_username</type>\n        <name>username</name>\n        <required>true</required>\n        <max>255</max>\n        <min>1</min>\n    </field>\n    <field>\n        <type>string_gender</type>\n        <name>gender</name>\n        <required>false</required>\n        <max>255</max>\n        <min>1</min>\n    </field>\n    <field>\n        <type>string_middle_name</type>\n        <name>middle_name</name>\n        <required>false</required>\n        <max>255</max>\n        <min>1</min>\n    </field>\n    <field>\n        <type>string_last_name</type>\n        <name>last_name</name>\n        <required>false</required>\n        <max>255</max>\n        <min>1</min>\n    </field>\n    <field>\n        <type>string_ssn</type>\n        <name>ssn</name>\n        <required>false</required>\n        <max>255</max>\n        <min>1</min>\n    </field>\n    <field>\n        <type>string_hobby</type>\n        <name>hobby</name>\n        <required>false</required>\n        <max>255</max>\n        <min>1</min>\n    </field>\n    <field>\n        <type>string_country</type>\n        <name>country</name>\n        <required>false</required>\n        <max>255</max>\n        <min>1</min>\n    </field>\n    <field>\n        <type>string_image_url</type>\n        <name>avatar_url</name>\n        <required>false</required>\n        <max>150</max>\n        <min>150</min>\n    </field>\n    <field>\n        <type>string_image_url</type>\n        <name>background_url</name>\n        <required>false</required>\n        <max>600</max>\n        <min>200</min>\n    </field>\n    <field>\n        <type>string_date_time</type>\n        <name>created_at</name>\n        <required>false</required>\n        <max>19</max>\n        <min>19</min>\n    </field>\n</fields>\n",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/login",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "xml",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/xml"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Aug 2023 16:42:44 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1525"
+								}
+							],
+							"cookie": [],
+							"body": "<RouteLoginResponse>\n    <token>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaWVsZHMiOlt7InR5cGUiOiJ1aW50MzIiLCJuYW1lIjoiaWQiLCJyZXF1aXJlZCI6dHJ1ZSwibWF4Ijo0Mjk0OTY3Mjk1LCJtaW4iOjB9LHsidHlwZSI6InN0cmluZ19maXJzdF9uYW1lIiwibmFtZSI6ImZpcnN0X25hbWUiLCJyZXF1aXJlZCI6dHJ1ZSwibWF4IjoyNTUsIm1pbiI6MX0seyJ0eXBlIjoic3RyaW5nX2VtYWlsIiwibmFtZSI6ImVtYWlsIiwicmVxdWlyZWQiOnRydWUsIm1heCI6MjU1LCJtaW4iOjV9LHsidHlwZSI6InN0cmluZ191c2VybmFtZSIsIm5hbWUiOiJ1c2VybmFtZSIsInJlcXVpcmVkIjp0cnVlLCJtYXgiOjI1NSwibWluIjoxfSx7InR5cGUiOiJzdHJpbmdfZ2VuZGVyIiwibmFtZSI6ImdlbmRlciIsInJlcXVpcmVkIjpmYWxzZSwibWF4IjoyNTUsIm1pbiI6MX0seyJ0eXBlIjoic3RyaW5nX21pZGRsZV9uYW1lIiwibmFtZSI6Im1pZGRsZV9uYW1lIiwicmVxdWlyZWQiOmZhbHNlLCJtYXgiOjI1NSwibWluIjoxfSx7InR5cGUiOiJzdHJpbmdfbGFzdF9uYW1lIiwibmFtZSI6Imxhc3RfbmFtZSIsInJlcXVpcmVkIjpmYWxzZSwibWF4IjoyNTUsIm1pbiI6MX0seyJ0eXBlIjoic3RyaW5nX3NzbiIsIm5hbWUiOiJzc24iLCJyZXF1aXJlZCI6ZmFsc2UsIm1heCI6MjU1LCJtaW4iOjF9LHsidHlwZSI6InN0cmluZ19ob2JieSIsIm5hbWUiOiJob2JieSIsInJlcXVpcmVkIjpmYWxzZSwibWF4IjoyNTUsIm1pbiI6MX0seyJ0eXBlIjoic3RyaW5nX2NvdW50cnkiLCJuYW1lIjoiY291bnRyeSIsInJlcXVpcmVkIjpmYWxzZSwibWF4IjoyNTUsIm1pbiI6MX0seyJ0eXBlIjoic3RyaW5nX2ltYWdlX3VybCIsIm5hbWUiOiJhdmF0YXJfdXJsIiwicmVxdWlyZWQiOmZhbHNlLCJtYXgiOjE1MCwibWluIjoxNTB9LHsidHlwZSI6InN0cmluZ19pbWFnZV91cmwiLCJuYW1lIjoiYmFja2dyb3VuZF91cmwiLCJyZXF1aXJlZCI6ZmFsc2UsIm1heCI6NjAwLCJtaW4iOjIwMH0seyJ0eXBlIjoic3RyaW5nX2RhdGVfdGltZSIsIm5hbWUiOiJjcmVhdGVkX2F0IiwicmVxdWlyZWQiOmZhbHNlLCJtYXgiOjE5LCJtaW4iOjE5fV19.XQqXKf0drS0ObGvg7LWMsWRt7haWoFmxYh5uhXr0EN8</token>\n</RouteLoginResponse>"
+						},
+						{
+							"name": "Ошибка",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "<fields>\n    <field>\n        <type>uint32</type>\n        <name>id</name>\n        <required>true</required>\n        <max>4294967295</max>\n        <min>0</min>\n    </field>\n    <field>\n        <type>string_first_name</type>\n        <name>first_name</name>\n        <required>true</required>\n        <max>255</max>\n        <min>1</min>\n    </field>\n    <field>\n        <type>string_email</type>\n        <name>email</name>\n        <required>true</required>\n        <max>255</max>\n        <min>5</min>\n    </field>\n    <field>\n        <type>string_username</type>\n        <name>username</name>\n        <required>true</required>\n        <max>255</max>\n        <min>1</min>\n    </field>\n    <field>\n        <type>string_gender</type>\n        <name>gender</name>\n        <required>false</required>\n        <max>255</max>\n        <min>1</min>\n    </field>\n    <field>\n        <type>string_middle_name</type>\n        <name>middle_name</name>\n        <required>false</required>\n        <max>255</max>\n        <min>1</min>\n    </field>\n    <field>\n        <type>string_last_name</type>\n        <name>last_name</name>\n        <required>false</required>\n        <max>255</max>\n        <min>1</min>\n    </field>\n    <field>\n        <type>string_ssn</type>\n        <name>ssn</name>\n        <required>false</required>\n        <max>255</max>\n        <min>1</min>\n    </field>\n    <field>\n        <type>string_hobby</type>\n        <name>hobby</name>\n        <required>false</required>\n        <max>255</max>\n        <min>1</min>\n    </field>\n    <field>\n        <type>string_country</type>\n        <name>country</name>\n        <required>false</required>\n        <max>255</max>\n        <min>1</min>\n    </field>\n    <field>\n        <type>string_image_url</type>\n        <name>avatar_url</name>\n        <required>false</required>\n        <max>150</max>\n        <min>150</min>\n    </field>\n    <field>\n        <type>string_image_url</type>\n        <name>background_url</name>\n        <required>false</required>\n        <max>600</max>\n        <min>200</min>\n    </field>\n    <field>\n        <type>string_date_time</type>\n        <name>created_at</name>\n        <required>false</required>\n        <max>19</max>\n        <min>19</min>\n    </field>\n</field1s>\n",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/login",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "xml",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/xml"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Aug 2023 16:59:34 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "110"
+								}
+							],
+							"cookie": [],
+							"body": "<data>\n    <message>XML syntax error on line 93: element &lt;fields&gt; closed by &lt;/field1s&gt;</message>\n</data>"
+						}
+					]
+				},
+				{
+					"name": "Список",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/xml",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{domain}}/list",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"list"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Успех",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/xml",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{domain}}/list",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"list"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "xml",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/xml"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Aug 2023 16:44:01 GMT"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "<data>\n    <item>\n        <first_name>Lemuel</first_name>\n        <gender>male</gender>\n        <last_name>Schamberger</last_name>\n        <id>335613901</id>\n        <middle_name>Chander</middle_name>\n        <background_url>https://picsum.photos/600/600</background_url>\n        <username>Ward6812</username>\n        <ssn>867478163</ssn>\n        <email>willardhirthe@lueilwitz.biz</email>\n        <hobby>Hydroponics</hobby>\n        <country>Antarctica</country>\n        <avatar_url>https://picsum.photos/150/150</avatar_url>\n        <created_at>2023-08-23 05:44:01</created_at>\n    </item>\n    <item>\n        <first_name>Maxwell</first_name>\n        <gender>female</gender>\n        <middle_name>Khaled</middle_name>\n        <ssn>935436112</ssn>\n        <username>Grimes7723</username>\n        <last_name>Gibson</last_name>\n        <created_at>2023-08-23 03:44:01</created_at>\n        <id>914291932</id>\n        <email>eulaliagaylord@wehner.biz</email>\n        <hobby>Speedcubing</hobby>\n        <country>Thailand</country>\n        <avatar_url>https://picsum.photos/150/150</avatar_url>\n        <background_url>https://picsum.photos/600/600</background_url>\n    </item>\n    <item>\n        <id>243688932</id>\n        <first_name>Gust</first_name>\n        <middle_name>Kay</middle_name>\n        <username>Lebsack8253</username>\n        <last_name>Dietrich</last_name>\n        <country>Guinea-Bissau</country>\n        <avatar_url>https://picsum.photos/150/150</avatar_url>\n        <email>reaganlittle@zemlak.com</email>\n        <gender>male</gender>\n        <hobby>Yoga</hobby>\n        <background_url>https://picsum.photos/600/600</background_url>\n        <created_at>2023-08-23 00:44:01</created_at>\n        <ssn>260568799</ssn>\n    </item>\n    <item>\n        <username>Dickinson7214</username>\n        <last_name>Trantow</last_name>\n        <hobby>Paintball</hobby>\n        <avatar_url>https://picsum.photos/150/150</avatar_url>\n        <id>602901492</id>\n        <gender>female</gender>\n        <background_url>https://picsum.photos/600/600</background_url>\n        <first_name>Katelyn</first_name>\n        <email>carsonlemke@kihn.net</email>\n        <middle_name>Sophie</middle_name>\n        <ssn>347780494</ssn>\n        <country>Honduras</country>\n        <created_at>2023-08-23 09:44:01</created_at>\n    </item>\n    <item>\n        <first_name>Verner</first_name>\n        <email>clauderolfson@padberg.io</email>\n        <gender>male</gender>\n        <last_name>Ryan</last_name>\n        <avatar_url>https://picsum.photos/150/150</avatar_url>\n        <username>Casper5884</username>\n        <created_at>2023-08-22 23:44:01</created_at>\n        <id>1482520799</id>\n        <ssn>181772149</ssn>\n        <hobby>Crossword puzzles</hobby>\n        <country>Australia</country>\n        <background_url>https://picsum.photos/600/600</background_url>\n        <middle_name>Esperanza</middle_name>\n    </item>\n    <item>\n        <id>3018667063</id>\n        <created_at>2023-08-23 10:44:01</created_at>\n        <ssn>434491745</ssn>\n        <first_name>Alize</first_name>\n        <email>zoeeichmann@goodwin.biz</email>\n        <gender>female</gender>\n        <middle_name>Clint</middle_name>\n        <last_name>Okuneva</last_name>\n        <username>Gulgowski4436</username>\n        <hobby>Exhibition drill</hobby>\n        <country>Germany</country>\n        <avatar_url>https://picsum.photos/150/150</avatar_url>\n        <background_url>https://picsum.photos/600/600</background_url>\n    </item>\n    <item>\n        <email>miakoch@bechtelar.com</email>\n        <middle_name>Henry</middle_name>\n        <ssn>756407931</ssn>\n        <hobby>Weight training</hobby>\n        <created_at>2023-08-23 09:44:01</created_at>\n        <id>728954995</id>\n        <avatar_url>https://picsum.photos/150/150</avatar_url>\n        <background_url>https://picsum.photos/600/600</background_url>\n        <first_name>Lowell</first_name>\n        <gender>male</gender>\n        <username>Cassin2417</username>\n        <last_name>Schiller</last_name>\n        <country>Estonia</country>\n    </item>\n    <item>\n        <id>198507878</id>\n        <gender>female</gender>\n        <last_name>Carroll</last_name>\n        <avatar_url>https://picsum.photos/150/150</avatar_url>\n        <first_name>Myah</first_name>\n        <email>justonnienow@doyle.name</email>\n        <hobby>Longboarding</hobby>\n        <background_url>https://picsum.photos/600/600</background_url>\n        <middle_name>Tilly</middle_name>\n        <username>Weimann9430</username>\n        <ssn>633566163</ssn>\n        <country>Mongolia</country>\n        <created_at>2023-08-22 23:44:01</created_at>\n    </item>\n    <item>\n        <id>1412643382</id>\n        <first_name>Leanne</first_name>\n        <country>United States of America</country>\n        <ssn>381223131</ssn>\n        <middle_name>Pierce</middle_name>\n        <hobby>Snowshoeing</hobby>\n        <avatar_url>https://picsum.photos/150/150</avatar_url>\n        <background_url>https://picsum.photos/600/600</background_url>\n        <created_at>2023-08-23 01:44:01</created_at>\n        <email>helenetoy@bechtelar.com</email>\n        <username>Marvin1647</username>\n        <gender>female</gender>\n        <last_name>Witting</last_name>\n    </item>\n    <item>\n        <created_at>2023-08-23 05:44:01</created_at>\n        <username>Bahringer9409</username>\n        <middle_name>Frances</middle_name>\n        <background_url>https://picsum.photos/600/600</background_url>\n        <gender>female</gender>\n        <first_name>Liana</first_name>\n        <ssn>363368911</ssn>\n        <hobby>Drawing</hobby>\n        <country>Lesotho</country>\n        <avatar_url>https://picsum.photos/150/150</avatar_url>\n        <id>2264718096</id>\n        <email>arnulfohudson@balistreri.net</email>\n        <last_name>Von</last_name>\n    </item>\n    <item>\n        <email>crawfordmorar@kiehn.info</email>\n        <background_url>https://picsum.photos/600/600</background_url>\n        <created_at>2023-08-23 02:44:01</created_at>\n        <id>3341056780</id>\n        <middle_name>Wayne</middle_name>\n        <hobby>Wrestling</hobby>\n        <country>Congo, Democratic Republic of the</country>\n        <first_name>Edwardo</first_name>\n        <last_name>Connelly</last_name>\n        <gender>female</gender>\n        <ssn>496827745</ssn>\n        <avatar_url>https://picsum.photos/150/150</avatar_url>\n        <username>Brekke2377</username>\n    </item>\n    <item>\n        <gender>female</gender>\n        <email>gilbertorolfson@oreilly.org</email>\n        <country>Jersey</country>\n        <created_at>2023-08-23 07:44:01</created_at>\n        <id>602420423</id>\n        <middle_name>Pauli</middle_name>\n        <ssn>138174526</ssn>\n        <hobby>Electronic games</hobby>\n        <background_url>https://picsum.photos/600/600</background_url>\n        <first_name>Kurtis</first_name>\n        <username>Pollich9759</username>\n        <last_name>McDermott</last_name>\n        <avatar_url>https://picsum.photos/150/150</avatar_url>\n    </item>\n    <item>\n        <last_name>Hahn</last_name>\n        <ssn>878335824</ssn>\n        <created_at>2023-08-23 06:44:01</created_at>\n        <email>pinkheidenreich@kihn.org</email>\n        <avatar_url>https://picsum.photos/150/150</avatar_url>\n        <background_url>https://picsum.photos/600/600</background_url>\n        <id>2305871396</id>\n        <username>Weber6380</username>\n        <hobby>Cryptography</hobby>\n        <country>Czechia</country>\n        <first_name>Ella</first_name>\n        <gender>male</gender>\n        <middle_name>Sara</middle_name>\n    </item>\n    <item>\n        <hobby>Macrame</hobby>\n        <country>Monaco</country>\n        <avatar_url>https://picsum.photos/150/150</avatar_url>\n        <id>2874851956</id>\n        <first_name>Sanford</first_name>\n        <username>Wilderman6199</username>\n        <middle_name>Jamal</middle_name>\n        <gender>female</gender>\n        <created_at>2023-08-22 23:44:01</created_at>\n        <email>donniewyman@glover.net</email>\n        <last_name>Beahan</last_name>\n        <ssn>520677555</ssn>\n        <background_url>https://picsum.photos/600/600</background_url>\n    </item>\n    <item>\n        <last_name>Harber</last_name>\n        <email>glennalittel@powlowski.org</email>\n        <username>Bernier3544</username>\n        <gender>female</gender>\n        <ssn>793769225</ssn>\n        <hobby>Mountaineering</hobby>\n        <country>Saudi Arabia</country>\n        <id>3523965080</id>\n        <avatar_url>https://picsum.photos/150/150</avatar_url>\n        <background_url>https://picsum.photos/600/600</background_url>\n        <first_name>Dino</first_name>\n        <middle_name>Brielle</middle_name>\n        <created_at>2023-08-23 09:44:01</created_at>\n    </item>\n    <item>\n        <first_name>Lorena</first_name>\n        <last_name>Terry</last_name>\n        <background_url>https://picsum.photos/600/600</background_url>\n        <id>678354041</id>\n        <ssn>208360292</ssn>\n        <country>Niger</country>\n        <username>Green5327</username>\n        <avatar_url>https://picsum.photos/150/150</avatar_url>\n        <created_at>2023-08-23 01:44:01</created_at>\n        <email>verdieankunding@davis.net</email>\n        <gender>female</gender>\n        <middle_name>Penn</middle_name>\n        <hobby>Rock tumbling</hobby>\n    </item>\n    <item>\n        <created_at>2023-08-23 06:44:01</created_at>\n        <id>1002351435</id>\n        <first_name>Shanna</first_name>\n        <last_name>Walker</last_name>\n        <ssn>815800929</ssn>\n        <hobby>Digital arts</hobby>\n        <background_url>https://picsum.photos/600/600</background_url>\n        <gender>female</gender>\n        <middle_name>Manuela</middle_name>\n        <country>Denmark</country>\n        <avatar_url>https://picsum.photos/150/150</avatar_url>\n        <email>maybellehalvorson@huels.name</email>\n        <username>Rogahn7847</username>\n    </item>\n    <item>\n        <email>queenlynch@torphy.name</email>\n        <username>Fadel2549</username>\n        <gender>female</gender>\n        <id>3269152119</id>\n        <ssn>948351063</ssn>\n        <country>Sao Tome and Principe</country>\n        <avatar_url>https://picsum.photos/150/150</avatar_url>\n        <first_name>Jordan</first_name>\n        <middle_name>Kayla</middle_name>\n        <created_at>2023-08-23 09:44:01</created_at>\n        <last_name>Hegmann</last_name>\n        <hobby>Genealogy</hobby>\n        <background_url>https://picsum.photos/600/600</background_url>\n    </item>\n    <item>\n        <email>brittanywilderman@pfannerstill.info</email>\n        <last_name>Gibson</last_name>\n        <avatar_url>https://picsum.photos/150/150</avatar_url>\n        <first_name>Vicky</first_name>\n        <gender>female</gender>\n        <ssn>360137308</ssn>\n        <background_url>https://picsum.photos/600/600</background_url>\n        <created_at>2023-08-23 03:44:01</created_at>\n        <username>Boyle1613</username>\n        <middle_name>Musetta</middle_name>\n        <id>231315143</id>\n        <hobby>Slot car</hobby>\n        <country>France</country>\n    </item>\n    <item>\n        <id>182910267</id>\n        <gender>female</gender>\n        <middle_name>Shashi</middle_name>\n        <avatar_url>https://picsum.photos/150/150</avatar_url>\n        <email>verngleason@witting.name</email>\n        <username>Hills5709</username>\n        <last_name>Mraz</last_name>\n        <ssn>915305407</ssn>\n        <background_url>https://picsum.photos/600/600</background_url>\n        <created_at>2023-08-23 05:44:01</created_at>\n        <hobby>Aquascaping</hobby>\n        <first_name>Verda</first_name>\n        <country>Ecuador</country>\n    </item>\n</data>"
+						},
+						{
+							"name": "Ошибка",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/xml",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{domain}}/list",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"list"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "xml",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/xml"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Aug 2023 16:59:53 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "96"
+								}
+							],
+							"cookie": [],
+							"body": "<data>\n    <message>token is malformed: token contains an invalid number of segments</message>\n</data>"
+						}
+					]
+				},
+				{
+					"name": "Объект",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/xml",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{domain}}/show",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"show"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Успех",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/xml",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{domain}}/show",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"show"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "xml",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/xml"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Aug 2023 16:44:39 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "451"
+								}
+							],
+							"cookie": [],
+							"body": "<data>\n    <first_name>Adolph</first_name>\n    <email>yolandahettinger@orn.io</email>\n    <gender>male</gender>\n    <ssn>264238991</ssn>\n    <country>Madagascar</country>\n    <avatar_url>https://picsum.photos/150/150</avatar_url>\n    <created_at>2023-08-22 23:44:39</created_at>\n    <id>2089497057</id>\n    <username>Haley5630</username>\n    <hobby>Horseshoes</hobby>\n    <last_name>Langworth</last_name>\n    <background_url>https://picsum.photos/600/600</background_url>\n    <middle_name>Saariq</middle_name>\n</data>"
+						},
+						{
+							"name": "Ошибка",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/xml",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{domain}}/show",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"show"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "xml",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/xml"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Aug 2023 17:00:02 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "96"
+								}
+							],
+							"cookie": [],
+							"body": "<data>\n    <message>token is malformed: token contains an invalid number of segments</message>\n</data>"
+						}
+					]
+				},
+				{
+					"name": "Удалить",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/xml",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{domain}}/delete",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"delete"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Успех",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/xml",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{domain}}/delete",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"delete"
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "xml",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/xml"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Aug 2023 16:45:34 GMT"
+								}
+							],
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "Ошибка",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/xml",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{domain}}/delete",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"delete"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "xml",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/xml"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Aug 2023 17:00:14 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "96"
+								}
+							],
+							"cookie": [],
+							"body": "<data>\n    <message>token is malformed: token contains an invalid number of segments</message>\n</data>"
+						}
+					]
+				},
+				{
+					"name": "Изменить частично",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "<data>\n    <username>fake</username>\n</data>\n",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/patch",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"patch"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Успех",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "<data>\n    <username>fake</username>\n</data>\n",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/patch",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"patch"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "xml",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/xml"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Aug 2023 16:48:21 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "38"
+								}
+							],
+							"cookie": [],
+							"body": "<data>\n    <username>fake</username>\n</data>"
+						},
+						{
+							"name": "Ошибка",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "<data>\n    <username></username>\n</data>\n",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/patch",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"patch"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "xml",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/xml"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Aug 2023 17:00:29 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "105"
+								}
+							],
+							"cookie": [],
+							"body": "<data>\n    <data index=\"username\">\n        <errors>\n            <error>Field has incorrect min length</error>\n        </errors>\n    </data>\n</data>"
+						}
+					]
+				},
+				{
+					"name": "Создать",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "<data>\n    <id>1</id>\n    <first_name>fake</first_name>\n    <email>example@example.com</email>\n    <username>fake_2</username>\n</data>\n",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/create",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"create"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Успех",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "<data>\n    <id>1</id>\n    <first_name>fake</first_name>\n    <email>example@example.com</email>\n    <username>fake_2</username>\n</data>\n",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/create",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"create"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "xml",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/xml"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Aug 2023 16:52:28 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "113"
+								}
+							],
+							"cookie": [],
+							"body": "<data>\n    <email>example@example.com</email>\n    <first_name>fake</first_name>\n    <id>1</id>\n    <username>fake_2</username>\n</data>"
+						},
+						{
+							"name": "Ошибка",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "<data>\n    <id>asdasd</id>\n    <first_name></first_name>\n</data>\n",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/create",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"create"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "xml",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/xml"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Aug 2023 17:00:54 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "338"
+								}
+							],
+							"cookie": [],
+							"body": "<data>\n    <data index=\"id\">\n        <errors>\n            <error>Field has incorrect type</error>\n        </errors>\n    </data>\n    <data index=\"first_name\">\n        <errors>\n            <error>Field has incorrect min length</error>\n        </errors>\n    </data>\n    <data index=\"email\">\n        <errors>\n            <error>Field not found</error>\n        </errors>\n    </data>\n    <data index=\"username\">\n        <errors>\n            <error>Field not found</error>\n        </errors>\n    </data>\n</data>"
+						}
+					]
+				},
+				{
+					"name": "Изменить в целом",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/put",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"put"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Успех",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "<data>\n    <id>1</id>\n    <first_name>fake</first_name>\n    <email>example@example.com</email>\n    <username>fake_2</username>\n</data>\n",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/put",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"put"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "xml",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/xml"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Aug 2023 16:53:41 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "113"
+								}
+							],
+							"cookie": [],
+							"body": "<data>\n    <id>1</id>\n    <email>example@example.com</email>\n    <first_name>fake</first_name>\n    <username>fake_2</username>\n</data>"
+						},
+						{
+							"name": "Ошибка",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "<data>\n    <id>asd</id>\n</data>\n",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/put",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"put"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "xml",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/xml"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Aug 2023 17:01:13 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "323"
+								}
+							],
+							"cookie": [],
+							"body": "<data>\n    <data index=\"id\">\n        <errors>\n            <error>Field has incorrect type</error>\n        </errors>\n    </data>\n    <data index=\"first_name\">\n        <errors>\n            <error>Field not found</error>\n        </errors>\n    </data>\n    <data index=\"email\">\n        <errors>\n            <error>Field not found</error>\n        </errors>\n    </data>\n    <data index=\"username\">\n        <errors>\n            <error>Field not found</error>\n        </errors>\n    </data>\n</data>"
+						}
 					]
 				}
-			},
-			"response": []
-		},
-		{
-			"name": "Изменить частично",
-			"request": {
-				"method": "PATCH",
-				"header": [],
-				"url": {
-					"raw": "{{domain}}/patch",
-					"host": [
-						"{{domain}}"
-					],
-					"path": [
-						"patch"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Изменить в целом",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"url": {
-					"raw": "{{domain}}/put",
-					"host": [
-						"{{domain}}"
-					],
-					"path": [
-						"put"
-					]
-				}
-			},
-			"response": []
+			]
 		}
 	],
 	"auth": {
@@ -160,7 +1566,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "{{jwt_news}}",
+				"value": "{{jwt_user}}",
 				"type": "string"
 			}
 		]
@@ -203,7 +1609,7 @@
 		},
 		{
 			"key": "jwt_user",
-			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaWVsZHMiOlt7InR5cGUiOiJ1aW50MzIiLCJuYW1lIjoiaWQiLCJyZXF1aXJlZCI6dHJ1ZSwibWF4Ijo0Mjk0OTY3Mjk1LCJtaW4iOjB9LHsidHlwZSI6InN0cmluZ19maXJzdF9uYW1lIiwibmFtZSI6ImZpcnN0X25hbWUiLCJyZXF1aXJlZCI6dHJ1ZSwibWF4IjoyNTUsIm1pbiI6MX0seyJ0eXBlIjoic3RyaW5nX21pZGRsZV9uYW1lIiwibmFtZSI6Im1pZGRsZV9uYW1lIiwicmVxdWlyZWQiOnRydWUsIm1heCI6MjU1LCJtaW4iOjF9LHsidHlwZSI6InN0cmluZ19sYXN0X25hbWUiLCJuYW1lIjoibGFzdF9uYW1lIiwicmVxdWlyZWQiOnRydWUsIm1heCI6MjU1LCJtaW4iOjF9LHsidHlwZSI6InN0cmluZ19nZW5kZXIiLCJuYW1lIjoiZ2VuZGVyIiwicmVxdWlyZWQiOnRydWUsIm1heCI6MjU1LCJtaW4iOjF9LHsidHlwZSI6InN0cmluZ19zc24iLCJuYW1lIjoic3NuIiwicmVxdWlyZWQiOnRydWUsIm1heCI6MjU1LCJtaW4iOjF9LHsidHlwZSI6InN0cmluZ19ob2JieSIsIm5hbWUiOiJob2JieSIsInJlcXVpcmVkIjp0cnVlLCJtYXgiOjI1NSwibWluIjoxfSx7InR5cGUiOiJzdHJpbmdfZW1haWwiLCJuYW1lIjoiZW1haWwiLCJyZXF1aXJlZCI6dHJ1ZSwibWF4IjoyNTUsIm1pbiI6NX0seyJ0eXBlIjoic3RyaW5nX2NvdW50cnkiLCJuYW1lIjoiY291bnRyeSIsInJlcXVpcmVkIjp0cnVlLCJtYXgiOjI1NSwibWluIjoxfSx7InR5cGUiOiJzdHJpbmdfdXNlcm5hbWUiLCJuYW1lIjoidXNlcm5hbWUiLCJyZXF1aXJlZCI6dHJ1ZSwibWF4IjoyNTUsIm1pbiI6MX0seyJ0eXBlIjoic3RyaW5nX2ltYWdlX3VybCIsIm5hbWUiOiJhdmF0YXJfdXJsIiwicmVxdWlyZWQiOmZhbHNlLCJtYXgiOjE1MCwibWluIjoxNTB9LHsidHlwZSI6InN0cmluZ19pbWFnZV91cmwiLCJuYW1lIjoiYmFja2dyb3VuZF91cmwiLCJyZXF1aXJlZCI6ZmFsc2UsIm1heCI6NjAwLCJtaW4iOjIwMH0seyJ0eXBlIjoic3RyaW5nX2RhdGVfdGltZSIsIm5hbWUiOiJjcmVhdGVkX2F0IiwicmVxdWlyZWQiOmZhbHNlLCJtYXgiOjE5LCJtaW4iOjE5fV19.9Dyyw2qAp0HybzEJbhhyds83soTYAixFwy90rJyj0Hk",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaWVsZHMiOlt7InR5cGUiOiJ1aW50MzIiLCJuYW1lIjoiaWQiLCJyZXF1aXJlZCI6dHJ1ZSwibWF4Ijo0Mjk0OTY3Mjk1LCJtaW4iOjB9LHsidHlwZSI6InN0cmluZ19maXJzdF9uYW1lIiwibmFtZSI6ImZpcnN0X25hbWUiLCJyZXF1aXJlZCI6dHJ1ZSwibWF4IjoyNTUsIm1pbiI6MX0seyJ0eXBlIjoic3RyaW5nX2VtYWlsIiwibmFtZSI6ImVtYWlsIiwicmVxdWlyZWQiOnRydWUsIm1heCI6MjU1LCJtaW4iOjV9LHsidHlwZSI6InN0cmluZ191c2VybmFtZSIsIm5hbWUiOiJ1c2VybmFtZSIsInJlcXVpcmVkIjp0cnVlLCJtYXgiOjI1NSwibWluIjoxfSx7InR5cGUiOiJzdHJpbmdfZ2VuZGVyIiwibmFtZSI6ImdlbmRlciIsInJlcXVpcmVkIjpmYWxzZSwibWF4IjoyNTUsIm1pbiI6MX0seyJ0eXBlIjoic3RyaW5nX21pZGRsZV9uYW1lIiwibmFtZSI6Im1pZGRsZV9uYW1lIiwicmVxdWlyZWQiOmZhbHNlLCJtYXgiOjI1NSwibWluIjoxfSx7InR5cGUiOiJzdHJpbmdfbGFzdF9uYW1lIiwibmFtZSI6Imxhc3RfbmFtZSIsInJlcXVpcmVkIjpmYWxzZSwibWF4IjoyNTUsIm1pbiI6MX0seyJ0eXBlIjoic3RyaW5nX3NzbiIsIm5hbWUiOiJzc24iLCJyZXF1aXJlZCI6ZmFsc2UsIm1heCI6MjU1LCJtaW4iOjF9LHsidHlwZSI6InN0cmluZ19ob2JieSIsIm5hbWUiOiJob2JieSIsInJlcXVpcmVkIjpmYWxzZSwibWF4IjoyNTUsIm1pbiI6MX0seyJ0eXBlIjoic3RyaW5nX2NvdW50cnkiLCJuYW1lIjoiY291bnRyeSIsInJlcXVpcmVkIjpmYWxzZSwibWF4IjoyNTUsIm1pbiI6MX0seyJ0eXBlIjoic3RyaW5nX2ltYWdlX3VybCIsIm5hbWUiOiJhdmF0YXJfdXJsIiwicmVxdWlyZWQiOmZhbHNlLCJtYXgiOjE1MCwibWluIjoxNTB9LHsidHlwZSI6InN0cmluZ19pbWFnZV91cmwiLCJuYW1lIjoiYmFja2dyb3VuZF91cmwiLCJyZXF1aXJlZCI6ZmFsc2UsIm1heCI6NjAwLCJtaW4iOjIwMH0seyJ0eXBlIjoic3RyaW5nX2RhdGVfdGltZSIsIm5hbWUiOiJjcmVhdGVkX2F0IiwicmVxdWlyZWQiOmZhbHNlLCJtYXgiOjE5LCJtaW4iOjE5fV19.XQqXKf0drS0ObGvg7LWMsWRt7haWoFmxYh5uhXr0EN8",
 			"type": "string"
 		},
 		{

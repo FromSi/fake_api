@@ -9,6 +9,7 @@ import (
 	"strings"
 	"reflect"
 	"os"
+	"strconv"
 )
 
 // Получение полей из request header Authorization и декодирование JWT.
@@ -149,15 +150,15 @@ func decodeRequest(w http.ResponseWriter, r *http.Request, request interface{}) 
 
 // Валидация полей из request body. 
 // Проверяется наличие полей, их типы, минимальные и максимальные значения.
-func validateFieldsFromRequest(w http.ResponseWriter, r *http.Request, request map[string]interface{}, fields []Field, isRequired bool, statusCode int) (interface{}, int) {
+func validateFieldsFromRequest(w http.ResponseWriter, r *http.Request, request Item, fields []Field, isRequired bool, statusCode int) (interface{}, int) {
 	errs := []RouteErrorList{}
-	result := ObjectResponse{}
+	result := Item{}
 	result.Data = map[string]interface{}{}
 
 	for _, field := range fields {
 		isFound := false
 		
-		for k, v := range request {
+		for k, v := range request.Data {
 			if k != field.Name {
 				continue
 			}
@@ -165,6 +166,27 @@ func validateFieldsFromRequest(w http.ResponseWriter, r *http.Request, request m
 			isFound = true
 			err := RouteErrorList{}
 			err.Index = k
+
+			if contentType(w, r) == "application/xml" {
+				switch field.GetType() {
+					case "bool":
+						val, errTemp := strconv.ParseBool(v.(string))
+
+						if errTemp != nil {
+							err.Errors = append(err.Errors, "Field has incorrect type")
+						}
+
+						v = val
+					case "float64":
+						val, errTemp := strconv.ParseFloat(v.(string), 64)
+
+						if errTemp != nil {
+							err.Errors = append(err.Errors, "Field has incorrect type")
+						}
+
+						v = val
+				}
+			}
 	
 			if field.Name == "" {
 				err.Errors = append(err.Errors, "Field not found")
@@ -207,6 +229,10 @@ func validateFieldsFromRequest(w http.ResponseWriter, r *http.Request, request m
 	}
 
 	if len(errs) > 0 {
+		if contentType(w, r) == "application/xml" {
+			return RouteErrorListXML{ Data: errs }, statusCode
+		}
+
 		return errs, statusCode
 	} else {
 		for _, field := range fields {
