@@ -20,6 +20,7 @@ type RouteLoginRequest struct {
 
 // Структура для response body в роуте /login.
 type RouteLoginResponse struct {
+	XMLName xml.Name `xml:"data"`
 	Token string `json:"token" xml:"token"`
 }
 
