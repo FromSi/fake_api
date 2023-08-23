@@ -14,13 +14,13 @@ import (
 
 // Структура для request body в роуте /login.
 type RouteLoginRequest struct {
-	XMLName xml.Name `xml:"fields"`
+	XMLName xml.Name `xml:"fields" json:"-"`
 	Fields []Field `json:"fields" xml:"field"`
 }
 
 // Структура для response body в роуте /login.
 type RouteLoginResponse struct {
-	XMLName xml.Name `xml:"data"`
+	XMLName xml.Name `xml:"data" json:"-"`
 	Token string `json:"token" xml:"token"`
 }
 

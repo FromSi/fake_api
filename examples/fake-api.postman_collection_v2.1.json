@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "94ab7b10-f96a-4362-8672-11051413cb07",
+		"_postman_id": "88efdd02-c2a6-4795-ad14-e52e61213759",
 		"name": "Fake API",
 		"description": "Репозиторий проекта: [https://github.com/FromSi/fake_api](https://github.com/FromSi/fake_api)\n\nПеред работой с API можно создать JWT с нужными полями или выбрать переменную.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
@@ -17,10 +17,10 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "<data>\n    <item>\n        <type>uint8</type>\n        <name>id</name>\n        <required>true</required>\n        <max>255</max>\n        <min>0</min>\n    </item>\n</data>\n",
+							"raw": "{\n  \"fields\": [\n    {\n      \"type\": \"uint32\",\n      \"name\": \"id\",\n      \"required\": true,\n      \"max\": 4294967295,\n      \"min\": 0\n    },\n    {\n      \"type\": \"string_first_name\",\n      \"name\": \"first_name\",\n      \"required\": true,\n      \"max\": 255,\n      \"min\": 1\n    },\n    {\n      \"type\": \"string_email\",\n      \"name\": \"email\",\n      \"required\": true,\n      \"max\": 255,\n      \"min\": 5\n    },\n    {\n      \"type\": \"string_username\",\n      \"name\": \"username\",\n      \"required\": true,\n      \"max\": 255,\n      \"min\": 1\n    },\n    {\n      \"type\": \"string_gender\",\n      \"name\": \"gender\",\n      \"required\": false,\n      \"max\": 255,\n      \"min\": 1\n    },\n    {\n      \"type\": \"string_middle_name\",\n      \"name\": \"middle_name\",\n      \"required\": false,\n      \"max\": 255,\n      \"min\": 1\n    },\n    {\n      \"type\": \"string_last_name\",\n      \"name\": \"last_name\",\n      \"required\": false,\n      \"max\": 255,\n      \"min\": 1\n    },\n    {\n      \"type\": \"string_ssn\",\n      \"name\": \"ssn\",\n      \"required\": false,\n      \"max\": 255,\n      \"min\": 1\n    },\n    {\n      \"type\": \"string_hobby\",\n      \"name\": \"hobby\",\n      \"required\": false,\n      \"max\": 255,\n      \"min\": 1\n    },\n    {\n      \"type\": \"string_country\",\n      \"name\": \"country\",\n      \"required\": false,\n      \"max\": 255,\n      \"min\": 1\n    },\n    {\n      \"type\": \"string_image_url\",\n      \"name\": \"avatar_url\",\n      \"required\": false,\n      \"max\": 150,\n      \"min\": 150\n    },\n    {\n      \"type\": \"string_image_url\",\n      \"name\": \"background_url\",\n      \"required\": false,\n      \"max\": 600,\n      \"min\": 200\n    },\n    {\n      \"type\": \"string_date_time\",\n      \"name\": \"created_at\",\n      \"required\": false,\n      \"max\": 19,\n      \"min\": 19\n    }\n  ]\n}\n",
 							"options": {
 								"raw": {
-									"language": "xml"
+									"language": "json"
 								}
 							}
 						},
@@ -199,10 +199,6 @@
 										"type": "text"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "{{domain}}/list",
 									"host": [
@@ -398,7 +394,7 @@
 								}
 							],
 							"cookie": [],
-							"body": null
+							"body": ""
 						},
 						{
 							"name": "Ошибка",
@@ -1177,7 +1173,7 @@
 								}
 							],
 							"cookie": [],
-							"body": null
+							"body": ""
 						},
 						{
 							"name": "Ошибка",
