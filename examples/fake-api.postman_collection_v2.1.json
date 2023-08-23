@@ -1453,6 +1453,15 @@
 					"request": {
 						"method": "PUT",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "<data>\n    <id>1</id>\n    <first_name>fake</first_name>\n    <email>example@example.com</email>\n    <username>fake_2</username>\n</data>\n",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
 						"url": {
 							"raw": "{{domain}}/put",
 							"host": [
